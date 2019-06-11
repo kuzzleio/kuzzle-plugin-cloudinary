@@ -6,9 +6,8 @@
   "main": "lib/index.js",
   "scripts": {
     "postinstall": "npm run build",
-    "test": "npm run --silent lint && npm run --silent unit-testing && npm run functional-testing",
+    "test": "npm run --silent lint && npm run --silent unit-testing",
     "lint": "eslint --max-warnings=0 ./lib ./features",
-    "functional-testing": "bash run-features.sh",
     "build": "node bin/build.js"
   },
   "repository": {
@@ -18,9 +17,8 @@
   "keywords": [
     "kuzzle",
     "plugin",
-    "cloudinary",
-    "unsigned upload"
-  ],
+    "cloudinary"
+    ],
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/kuzzleio/kuzzle-core-plugin-boilerplate/issues"

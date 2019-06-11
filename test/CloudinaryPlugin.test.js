@@ -81,7 +81,7 @@ describe('CloudinaryPlugin', () => {
                 rename: true,
                 destroy: true,
                 add_tag: true,
-                remve_tag: true,
+                remove_tag: true,
                 remove_all_tags: true,
                 replace_tag: true
             }
@@ -97,10 +97,17 @@ describe('CloudinaryPlugin', () => {
     })
 
     describe('#searchResult', () => {
-
         it('should get the secure url of the search result', async () => {
-            const a = await cloudinaryPlugin.search(request);
-            should(a).be.eql(cloudinary_fake_response.resources.map(v => v.secure_url));
+            const res = await cloudinaryPlugin.search(request);
+            should(res).be.eql(cloudinary_fake_response.resources.map(v => v.secure_url));
+        })
+    })
+
+    describe('#uploadTests', () => {
+        it('should get ...', async () => {
+            //TODO must format request for each kind of test
+            const res = await cloudinaryPlugin.rename(request); 
+
         })
     })
 
