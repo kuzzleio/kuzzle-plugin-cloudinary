@@ -6,24 +6,25 @@
   "main": "lib/index.js",
   "scripts": {
     "postinstall": "npm run build",
-    "test": "npm run --silent lint && npm run --silent unit-testing",
-    "lint": "eslint --max-warnings=0 ./lib ./features",
+    "test": "npm run --silent lint && npm run unit-testing",
+    "lint": "eslint --max-warnings=0 ./lib",
+    "unit-testing": "./node_modules/.bin/mocha test/",
     "build": "node bin/build.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kuzzleio/kuzzle-core-plugin-boilerplate.git"
+    "url": "git+https://github.com/kuzzleio/kuzzle-plugin-cloudinary.git"
   },
   "keywords": [
     "kuzzle",
     "plugin",
     "cloudinary"
-    ],
+  ],
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/kuzzleio/kuzzle-core-plugin-boilerplate/issues"
+    "url": "https://github.com/kuzzleio/kuzzle-plugin-cloudinary/issues"
   },
-  "homepage": "https://github.com/kuzzleio/kuzzle-core-plugin-boilerplate#readme",
+  "homepage": "https://github.com/kuzzleio/kuzzle-plugin-cloudinary#readme",
   "devDependencies": {
     "cucumber": "^5.0.1",
     "eslint": "^5.6.0",
