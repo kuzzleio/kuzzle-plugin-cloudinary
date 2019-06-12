@@ -41,13 +41,13 @@ describe('CloudinaryPlugin', () => {
       //Should see if this.context.log.error is called 
       cloudinaryPlugin.init({}, context);
 
-      should(context.log.error).be.called();
+      return should(context.log.error).be.called();
     });
 
     it('should throw internal error in production if no config is given', () => {
       process.env.NODE_ENV = 'production';
 
-      should.throws(() => { cloudinaryPlugin.init({}, context);});
+      return should.throws(() => { cloudinaryPlugin.init({}, context);});
 
     });
   });
@@ -59,13 +59,14 @@ describe('CloudinaryPlugin', () => {
           args: {}
         }
       });
-      should.throws(() => cloudinaryPlugin._getArg(request, 'anArg'));
+
+      return should.throws(() => cloudinaryPlugin._getArg(request, 'anArg'));
     });
   });
 
   describe('#errorHandlingHelper', () => {
     it('should throw a partial error when one of given public_ids isnt updated', () => {
-      should.throws(() => cloudinaryPlugin._handleError(['one', 'two'], ['two']));
+      return should.throws(() => cloudinaryPlugin._handleError(['one', 'two'], ['two']));
     });
   });
 
@@ -85,12 +86,13 @@ describe('CloudinaryPlugin', () => {
       
       await cloudinaryPlugin.search(request);
 
-      should(cloudinaryPlugin._getArg).be.calledWith(request, 'expression');
+      return should(cloudinaryPlugin._getArg).be.calledWith(request, 'expression');
     });
 
     it('should call cloudinary function', async () => {
       await cloudinaryPlugin.search(request);
-      should(cloudinaryMock.v2.search.expression).be.calledWith('mySearch');
+
+      return should(cloudinaryMock.v2.search.expression).be.calledWith('mySearch');
     });
 
     // it('should get the secure url of the search result', async () => {
@@ -139,18 +141,22 @@ describe('CloudinaryPlugin', () => {
 
     it('should fetch the request with two public_ids', async () => {
       sinon.spy(cloudinaryPlugin, '_getArg');
+
       await cloudinaryPlugin.rename(request);
+
       should(cloudinaryPlugin._getArg).be.calledWith(request, 'from_public_id');
-      should(cloudinaryPlugin._getArg).be.calledWith(request, 'to_public_id'); 
+      return should(cloudinaryPlugin._getArg).be.calledWith(request, 'to_public_id'); 
     });
 
     it('should rename the file', async () => {
       await cloudinaryPlugin.rename(request);
-      should(cloudinaryMock.v2.uploader.rename).calledWith('testOld', 'testNew');
+
+      return should(cloudinaryMock.v2.uploader.rename).calledWith('testOld', 'testNew');
     });
 
     it('should throws error when the ressource is not found', async () => {
       cloudinaryMock.v2.uploader.rename = sinon.stub().throws({ http_code : 404 });
+
       return should(cloudinaryPlugin.rename(request)).be.rejectedWith(KuzzleErrors.NotFoundError);
     });
   });
@@ -168,17 +174,21 @@ describe('CloudinaryPlugin', () => {
 
     it('should fetch args for a public_id', async () => {
       sinon.spy(cloudinaryPlugin, '_getArg');
+
       await cloudinaryPlugin.destroy(request);
+
       should(cloudinaryPlugin._getArg).be.calledWith(request, 'public_id');
     });
 
     it('should destroy file', async () => {
       await cloudinaryPlugin.destroy(request);
+
       return should(cloudinaryMock.v2.uploader.destroy).be.calledWith('fileToDelete');
     });
 
     it('should throw 404 error when ressource is not found', async () => {
       cloudinaryMock.v2.uploader.destroy = sinon.stub().returns({result : 'not found'}); 
+
       return should(cloudinaryPlugin.destroy(request)).be.rejectedWith(KuzzleErrors.NotFoundError);
     });
   });
@@ -201,7 +211,7 @@ describe('CloudinaryPlugin', () => {
       await cloudinaryPlugin.add_tag(request);
 
       should(cloudinaryPlugin._getArg).be.calledWith(request, 'public_ids');
-      should(cloudinaryPlugin._getArg).be.calledWith(request,'tag');
+      return should(cloudinaryPlugin._getArg).be.calledWith(request,'tag');
     });
 
     it('should call cloudinary add_tag function & error handler', async () => {
@@ -210,7 +220,7 @@ describe('CloudinaryPlugin', () => {
       await cloudinaryPlugin.add_tag(request);
 
       should(cloudinaryMock.v2.uploader.add_tag).be.calledWith('tag',['ids']);
-      should(cloudinaryPlugin._handleError).be.called();
+      return should(cloudinaryPlugin._handleError).be.called();
     });
 
   });
@@ -233,7 +243,7 @@ describe('CloudinaryPlugin', () => {
       await cloudinaryPlugin.remove_tag(request);
 
       should(cloudinaryPlugin._getArg).be.calledWith(request, 'public_ids');
-      should(cloudinaryPlugin._getArg).be.calledWith(request,'tag');
+      return should(cloudinaryPlugin._getArg).be.calledWith(request,'tag');
     });
 
     it('should call the cloudinary remove tag function and the error handler', async () => {
@@ -242,7 +252,7 @@ describe('CloudinaryPlugin', () => {
       await cloudinaryPlugin.remove_tag(request);
 
       should(cloudinaryMock.v2.uploader.remove_tag).be.calledWith('tag', ['ids']);
-      should(cloudinaryPlugin._handleError).be.called();
+      return should(cloudinaryPlugin._handleError).be.called();
     });
   });
 
@@ -262,7 +272,7 @@ describe('CloudinaryPlugin', () => {
 
       await cloudinaryPlugin.remove_all_tags(request);
 
-      should(cloudinaryPlugin._getArg).be.calledWith(request, 'public_ids');
+      return should(cloudinaryPlugin._getArg).be.calledWith(request, 'public_ids');
     });
 
     it('should call the cloudinary remove all tags function and the error handler', async () => {
@@ -271,7 +281,7 @@ describe('CloudinaryPlugin', () => {
       await cloudinaryPlugin.remove_all_tags(request);
 
       should(cloudinaryMock.v2.uploader.remove_all_tags).be.calledWith(['ids']);
-      should(cloudinaryPlugin._handleError).be.called();
+      return should(cloudinaryPlugin._handleError).be.called();
     });
   });
 
@@ -293,12 +303,13 @@ describe('CloudinaryPlugin', () => {
       await cloudinaryPlugin.replace_tag(request);
 
       should(cloudinaryPlugin._getArg).be.calledWith(request, 'public_ids');
-      should(cloudinaryPlugin._getArg).be.calledWith(request, 'tag');
+      return should(cloudinaryPlugin._getArg).be.calledWith(request, 'tag');
     });
 
     it('should call the cloudinary replace tag function and the error handler', async () => {
       await cloudinaryPlugin.replace_tag(request);
-      should(cloudinaryMock.v2.uploader.replace_tag).be.calledWith('tag',['ids']);
+
+      return should(cloudinaryMock.v2.uploader.replace_tag).be.calledWith('tag',['ids']);
     });
   });
 
@@ -306,9 +317,6 @@ describe('CloudinaryPlugin', () => {
 
 /** TODO 
  * 
- * Reprendre la mise en page : 1 test => 3 parties : Init \n Lancement de la fonction testée \n Tests 
- * 
  * Pas d'async
  * 
- * Add return 
  */
