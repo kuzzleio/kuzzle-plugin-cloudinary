@@ -13,6 +13,19 @@ jobs:
         - npm run lint
 
     - stage: "Tests"
+      name: "Unit tests - Node.js 6"
+      os: linux
+      sudo: required
+      language: node_js
+      node_js: 
+        - 6
+      cache: npm
+      install:
+        - npm install --silent
+      script:
+        - npm run unit-testing
+
+    - stage: "Tests"
       name: "Unit tests - Node.js 8"
       os: linux
       sudo: required

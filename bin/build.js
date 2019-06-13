@@ -26,7 +26,6 @@
 const 
   semver = require('semver'),
   { execSync } = require('child_process');
-
 if (!semver.satisfies(process.version, '>= 8.0.0')) {
-  execSync('babel lib/CloudinaryPlugin.js -d build');
+  execSync('./node_modules/.bin/babel  lib/CloudinaryPlugin.js -d build');
 }
