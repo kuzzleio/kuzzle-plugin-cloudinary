@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/32480223/59445914-c0f5f700-8e00-11e9-8335-0b69d4728357.png"/>
+</p>
+
 # Kuzzle Plugin : Cloudinary
 
 Cloudinary is cloud-based image and video management platform. It automates the entire image-processing pipeline: from uploads to on-the-fly manipulations to optimization to dynamic delivery with any CDN.
