@@ -9,7 +9,8 @@
     "test": "npm run --silent lint && npm run --silent unit-testing",
     "lint": "./node_modules/.bin/eslint --max-warnings=0 ./lib ./test",
     "unit-testing": "nyc --reporter=text-summary --reporter=lcov mocha",
-    "build": "node bin/build.js"
+    "build": "node bin/build.js",
+    "codecov": "codecov"
   },
   "repository": {
     "type": "git",
@@ -35,7 +36,8 @@
     "should-sinon": "0.0.6",
     "sinon": "^7.2.3",
     "should": "^13.2.3",
-    "kuzzle-common-objects": "^3.0.13"
+    "kuzzle-common-objects": "^3.0.13",
+    "codecov": "^3.2.0"
   },
   "dependencies": {
     "@babel/cli": "^7.4.4",
@@ -47,5 +49,11 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "semver": "^6.0.0"
-  }
+  },
+  "maintainers": [
+    {
+      "name": "kuzzle",
+      "email": "support@kuzzle.io"
+    }
+  ]
 }

@@ -1,19 +1,28 @@
-group: edge
+jobs:
+  include:
+    - stage: "Tests"
+      name: "Linting"
+      os: linux
+      sudo: required
+      language: node_js
+      node_js: 8
+      cache: npm
+      install:
+        - npm install --silent
+      script:
+        - npm run lint
 
-services:
-  - docker
-
-on:
-  branch: master
-
-env:
-  global:
-  - DOCKER_COMPOSE_VERSION=1.21.0
-
-before_install:
-  - sudo sysctl -w vm.max_map_count=262144
-  - sudo sysctl -w fs.inotify.max_user_watches=524288
-
-script:
-  # Run tests
-  - npm install --unsafe-perm && npm test
+    - stage: "Tests"
+      name: "Unit tests - Node.js 8"
+      os: linux
+      sudo: required
+      language: node_js
+      node_js: 
+        - 8
+      cache: npm
+      install:
+        - npm install --silent
+      script:
+        - npm run unit-testing
+      after_script:
+        - npm run codecov
