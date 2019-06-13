@@ -121,10 +121,10 @@ describe('CloudinaryPlugin', () => {
 
     it('should fetch the request for an image to be uploaded');
 
-    it('should call cloudinary upload function', async () => {
+    it('should call cloudinary upload function'); 
+    /*async () => {
       await cloudinaryPlugin.upload(request);
-      // should(cloudinaryMock.v2.search.expression).be.calledWith('mySearch');
-    });
+    });*/
   });
 
   describe('#rename', () => {
@@ -154,7 +154,7 @@ describe('CloudinaryPlugin', () => {
       return should(cloudinaryMock.v2.uploader.rename).calledWith('testOld', 'testNew');
     });
 
-    it('should throws error when the ressource is not found', async () => {
+    it('should throws error when the ressource is not found', () => {
       cloudinaryMock.v2.uploader.rename = sinon.stub().throws({ http_code : 404 });
 
       return should(cloudinaryPlugin.rename(request)).be.rejectedWith(KuzzleErrors.NotFoundError);
@@ -186,7 +186,7 @@ describe('CloudinaryPlugin', () => {
       return should(cloudinaryMock.v2.uploader.destroy).be.calledWith('fileToDelete');
     });
 
-    it('should throw 404 error when ressource is not found', async () => {
+    it('should throw 404 error when ressource is not found', () => {
       cloudinaryMock.v2.uploader.destroy = sinon.stub().returns({result : 'not found'}); 
 
       return should(cloudinaryPlugin.destroy(request)).be.rejectedWith(KuzzleErrors.NotFoundError);
@@ -314,9 +314,3 @@ describe('CloudinaryPlugin', () => {
   });
 
 });
-
-/** TODO 
- * 
- * Pas d'async
- * 
- */
