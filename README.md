@@ -1,78 +1,132 @@
-# kuzzle-plugin-cloudinary
-Here, you'll find the boilerplate to start coding a new [Kuzzle Core Plugin](https://docs.kuzzle.io/plugins/1/essentials/getting-started/). A Core Plugin allows you to
+# Kuzzle Plugin : Cloudinary
 
-* [listen asynchronously](https://docs.kuzzle.io/plugins/1/hooks/), and perform operations that depend on data-related events;
-* [listen synchronously](https://docs.kuzzle.io/plugins/1/pipes/), and approve, modify and/or reject data-related queries;
-* [add a controller route](https://docs.kuzzle.io/plugins/1/controllers/) to expose new actions to the API;
-* [add an authentication strategy](https://docs.kuzzle.io/plugins/1/strategies/) to Kuzzle.
+Cloudinary is cloud-based image and video management platform. It automates the entire image-processing pipeline: from uploads to on-the-fly manipulations to optimization to dynamic delivery with any CDN.
 
+## Usage
 
-The boilerplate demonstrates each feature of a Core Plugin.
+You can use several functionnalities of Cloudinary API within Kuzzle with this plugin. 
+Here are the existing routes (Note that all of these are preceded by `https://<host>:<port>/_plugin/kuzzle-plugin-cloudinary/`) 
 
-## Plugin development
-
-This plugin is useful only if you use it as the starting point of your work. It's a boilerplate.
-
-### On an existing Kuzzle
-
-Clone this repository locally and make it accessible from the `plugins/enabled` directory relative to the Kuzzle installation directory. A common practice is to put the code of the plugin in `plugins/available` and create a symbolic link to it in `plugins/enabled`.
-
-**Note.** If you are running Kuzzle from within a Docker container, you will need to mount the local plugin installation directory as a volume in the container.
-
-Please refer to the Guide for further instructions on [how to install Kuzzle plugins](https://docs.kuzzle.io/guide/1/essentials/plugins/#installing-a-plugin).
-
-### On a pristine Kuzzle stack
-
-You can use the `docker-compose.yml` file included in this repository to start a development-oriented stack to help you creating your custom Kuzzle Core plugin.
-
-Clone this repository locally and type:
-
-```bash
-$ docker-compose -f docker/docker-compose.yml up
-```
-
-This command will start a Kuzzle stack with this plugin enabled. To make development more confortable, a watcher will also be activated, restarting Kuzzle every time a modification is detected.
-
-**Note:** depending on your operating system, you may get `ENOSPC` errors due to the file watcher. This is due to a `sysctl` restriction, and can be alleviated by applying the following command prior to starting the docker stack:
-
-```bash
-$ sudo sysctl -w fs.inotify.max_user_watches=52428
-```
-
-#### Working on a different Kuzzle tag
-
-You can choose to work on the Kuzzle development branch by defining the following environment variables before launching `docker-compose`:
-
-```bash
-$ export KUZZLE_DOCKER_TAG=1.4.2
-$ docker-compose -f docker/docker-compose.yml up
-```
-
-These environment variables enable you to specify any existing build tag available on [Docker Hub](https://hub.docker.com/r/kuzzleio/kuzzle/tags/).
+| HTTP Verb |      Route      |
+| --------: | :-------------- |
+|    GET    |     search      |
+|   PATCH   |     rename      |
+|  DELETE   |     destroy     |
+|   POST    |     add_tag     |
+|  DELETE   |   remove_tag    |
+|  DELETE   | remove_all_tags |
+|   PATCH   |   replace_tag   |
 
 
-#### Customizing the plugin instance name
+### Search API
 
-You may want to choose a plugin name rather than using the default one. To do so, edit the `manifest.json` file at the root of this repo and change the `name` property to your convenience.
+#### `search` function
+This function searches for assets corresponding to the given expression
+
+You can use the cloudinary **search function** by sending a `GET` HTTP-request to this route : `https://<host>:<port>/_plugin/kuzzle-plugin-cloudinary/search/:expression`
+
+The expression must be a descriptive string of your research. For more informations on the syntax of this string, check the [Cloudinary documentation about Expressions](cloudinary expression doc)
+
+### Upload API 
+
+#### `rename` function 
+This function renames the given asset
+
+You can use the cloudinary **rename function** by sending a `PATCH` HTTP-request to this route : `https://<host>:<port>/_plugin/kuzzle-plugin-cloudinary/rename`
+
+| Property         | Type   | Description                                   |
+| ---------------- | ------ | --------------------------------------------- |
+| `from_public_id` | string | Required: public_id of the file to be renamed |
+| `to_public_id`   | string | Required: new public_id of the file           |
+
+#### `destroy` function 
+This function deletes the given asset
+
+You can use the cloudinary **destroy function** by sending a `DELETE` HTTP-request to this route : `https://<host>:<port>/_plugin/kuzzle-plugin-cloudinary/destroy`
+
+| Property         | Type   | Description                                   |
+| ---------------- | ------ | --------------------------------------------- |
+|`public_id`|string|Required: public_id of the file to be deleted|
 
 
-## `manifest.json` file
+#### `add_tag` function 
+This function adds the given tag to the given assets
 
-The `manifest.json` file is here to provide a description of your plugin to Kuzzle:
+You can use the cloudinary **add_tag function** by sending a `POST` HTTP-request to this route : `https://<host>:<port>/_plugin/kuzzle-plugin-cloudinary/add_tag`
 
-```js
-{
-  /**
-   * This is metadata to describe your plugin
-   */
-  "name": "name-of-your-plugin",
+| Property         | Type   | Description                                   |
+| ---------------- | ------ | --------------------------------------------- |
+|`public_ids`|string|Required: a string of several comma-separated public_id <br>*Be aware of whitespace since Cloudinary authorizes whitespace in the public_id syntax*   |
+|`tag`|string| Required: the tag to be added |
 
-  /**
-   * Define what Kuzzle version this plugin is designed for.
-   * Use semver notation to limit the range of supported Kuzzle versions.
-   * If not set, Kuzzle will complain and consider that the plugin has been 
-   * designed for Kuzzle v1 only.
-   */
-  "kuzzleVersion": ">=1.1.0 <2.0.0"
+For more information see the [Cloudinary tags methods][cloudinary tags doc]
+
+#### `remove_tag` function
+This function removes the given tag from the given assets 
+
+You can use the cloudinary **remove_tag function** by sending a `DELETE` HTTP-request to this route : `https://<host>:<port>/_plugin/kuzzle-plugin-cloudinary/remove_tag`
+
+| Property         | Type   | Description                                   |
+| ---------------- | ------ | --------------------------------------------- |
+|`public_ids`|string|Required: a string of several comma-separated public_id <br>*Be aware of whitespace since Cloudinary authorizes whitespace in the public_id syntax*   |
+|`tag`|string| Required: the tag to be removed |
+
+For more information see the [Cloudinary tags methods][cloudinary tags doc]
+
+#### `remove_all_tags` function 
+This function removes all tags from the given assets
+
+You can use the cloudinary **remove_all_tags function** by sending a `DELETE` HTTP-request to this route : `https://<host>:<port>/_plugin/kuzzle-plugin-cloudinary/remove_all_tags`
+
+| Property         | Type   | Description                                   |
+| ---------------- | ------ | --------------------------------------------- |
+|`public_ids`|string|Required: a string of several comma-separated public_id <br>*Be aware of whitespace since Cloudinary authorizes whitespace in the public_id syntax*   |
+
+For more information see the [Cloudinary tags methods][cloudinary tags doc]
+
+#### `replace_tag` function 
+This function replace all the current tag of the given assets by the given tag
+
+You can use the cloudinary **replace_tag function** by sending a `PATCH` HTTP-request to this route : `https://<host>:<port>/_plugin/kuzzle-plugin-cloudinary/replace_tag`
+
+| Property         | Type   | Description                                   |
+| ---------------- | ------ | --------------------------------------------- |
+|`public_ids`|string|Required: a string of several comma-separated public_id <br>*Be aware of whitespace since Cloudinary authorizes whitespace in the public_id syntax*   |
+|`tag`|string| Required: the tag that will replace all the current tag|
+
+For more information see the [Cloudinary tags methods][cloudinary tags doc]
+
+## Error handling 
+
+All tag methods can throw a `206 PartialError` if at least one ressources had not been updated : This error will contain all the errors encountered during the request. 
+
+## Configuration 
+
+In order to use this plugin, you **need to provide your Cloudinary credentials** in the `.kuzzlerc` configuration file. 
+
+Here is the template of the needed configuration : 
+```json 
+"plugins": {
+  "kuzzle-plugin-cloudinary": {
+    "cloudinaryCloudName": "your-cloudinary-cloud-name",
+    "cloudinaryApiKey": "your-cloudinary-api-key",
+    "cloudinaryApiSecret": "your-cloudinary-api-secret"
+  }
 }
 ```
+
+## Installation 
+
+### On your Kuzzle Stack
+
+Clone this repository in your `plugin/available` directory, install all needed modules with `npm install` and then link this directory to your `plugin/enabled` directory. 
+
+```bash 
+git clone https://github.com/kuzzleio/kuzzle-plugin-cloudinary.git /path-of-your-kuzzle/plugins/available 
+cd /path-of-your-kuzzle/plugins/available/kuzzle-plugin-cloudinary
+npm install 
+ln -sr ./ ../../plugins/enabled/kuzzle-plugin-cloudinary 
+```
+
+[cloudinary tags doc]: https://cloudinary.com/documentation/image_upload_api_reference#tags_method
+[cloudinary expression doc]: https://cloudinary.com/documentation/search_api#expressions
