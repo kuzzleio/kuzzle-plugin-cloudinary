@@ -125,9 +125,25 @@ describe('CloudinaryPlugin', () => {
       });
     });
 
-    it('should fetch the input for public id and transformation');
+    it('should fetch the input for public id and transformation', () => {
+      sinon.spy(cloudinaryPlugin, '_getArg');
 
-    it('should call cloudinary url function');
+      cloudinaryPlugin.transform(request)
+        .then(() => {
+
+          should(cloudinaryPlugin._getArg).be.calledWith(request.input.body, 'public_id');
+          return should(cloudinaryPlugin._getArg).be.calledWith(request.input.body,'transformation');
+        });
+
+
+    });
+
+    it('should get cloudinary url', () => {
+      cloudinaryPlugin.transform(request)
+        .then(() => {
+          return should(cloudinaryMock.v2.url).be.calledWith('id1', { width: 400});
+        });
+    });
   });
 
   describe('#rename', () => {
