@@ -60,7 +60,7 @@ You can use the cloudinary **add_tag function** by sending a `POST` HTTP-request
 
 | Property         | Type   | Description                                   |
 | ---------------- | ------ | --------------------------------------------- |
-|`public_ids`|string|Required: a string of several comma-separated public_id <br>*Be aware of whitespace since Cloudinary authorizes whitespace in the public_id syntax*   |
+|`public_id`|string|Required: the public_id of the asset to be edited. <br> **You can add several public_id field in your request !** <br>*Be aware of whitespace since Cloudinary authorizes whitespace in the public_id syntax*   |
 |`tag`|string| Required: the tag to be added |
 
 For more information see the [Cloudinary tags methods][cloudinary tags doc]
@@ -72,7 +72,7 @@ You can use the cloudinary **remove_tag function** by sending a `DELETE` HTTP-re
 
 | Property         | Type   | Description                                   |
 | ---------------- | ------ | --------------------------------------------- |
-|`public_ids`|string|Required: a string of several comma-separated public_id <br>*Be aware of whitespace since Cloudinary authorizes whitespace in the public_id syntax*   |
+|`public_id`|string|Required: the public_id of the asset to be edited. <br> **You can add several public_id field in your request !** <br>*Be aware of whitespace since Cloudinary authorizes whitespace in the public_id syntax*   |
 |`tag`|string| Required: the tag to be removed |
 
 For more information see the [Cloudinary tags methods][cloudinary tags doc]
@@ -84,7 +84,7 @@ You can use the cloudinary **remove_all_tags function** by sending a `DELETE` HT
 
 | Property         | Type   | Description                                   |
 | ---------------- | ------ | --------------------------------------------- |
-|`public_ids`|string|Required: a string of several comma-separated public_id <br>*Be aware of whitespace since Cloudinary authorizes whitespace in the public_id syntax*   |
+|`public_id`|string|Required: the public_id of the asset to be edited. <br> **You can add several public_id field in your request !** <br>*Be aware of whitespace since Cloudinary authorizes whitespace in the public_id syntax*   |
 
 For more information see the [Cloudinary tags methods][cloudinary tags doc]
 
@@ -95,7 +95,7 @@ You can use the cloudinary **replace_tag function** by sending a `PATCH` HTTP-re
 
 | Property         | Type   | Description                                   |
 | ---------------- | ------ | --------------------------------------------- |
-|`public_ids`|string|Required: a string of several comma-separated public_id <br>*Be aware of whitespace since Cloudinary authorizes whitespace in the public_id syntax*   |
+|`public_id`|string|Required: the public_id of the asset to be edited. <br> **You can add several public_id field in your request !** <br>*Be aware of whitespace since Cloudinary authorizes whitespace in the public_id syntax*   |
 |`tag`|string| Required: the tag that will replace all the current tag|
 
 For more information see the [Cloudinary tags methods][cloudinary tags doc]
