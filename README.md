@@ -18,7 +18,7 @@ Here are the existing routes (Note that all of these are preceded by `https://<h
 | :---- | :---- | :---- | 
 | GET | [/assets/:expression](#search-function) | Searches for some assets corresponding to the expression | 
 | GET | [/assets/transform](#transform-function)  | Returns the url of an asset with some transformation |
-| PUT | [/assets](#remane-function)  | Renames an asset |
+| PUT | [/assets](#rename-function)  | Renames an asset |
 | DELETE | [/assets](#destroy-function)  | Deletes an asset |
 | POST | [/tags](#add_tag-function)  | Adds a tag to one or many assets | 
 | PUT | [/tags](#replace_tag-function)  | Replaces all the tags from one or many assets by another tag |
@@ -32,7 +32,7 @@ This function searches for assets corresponding to the given expression
 
 You can use the cloudinary **search function** by sending a `GET` HTTP-request to this route : `https://<host>:<port>/_plugin/kuzzle-plugin-cloudinary/assets/:expression`
 
-The expression must be a descriptive string of your research. For more informations on the syntax of this string, check the [Cloudinary documentation about Expressions](cloudinary expression doc)
+The expression must be a descriptive string of your research. For more informations on the syntax of this string, check the [Cloudinary documentation about Expressions][cloudinary expression doc]
 
 #### `transform` function
 This function returns an url to access the given asset with the given transformations
@@ -41,6 +41,7 @@ You can use the **transform function** by sending a `GET` HTTP-request to this r
 `https://<host>:<port>/_plugin/kuzzle-plugin-cloudinary/assets/transform`
 
 The body must contain the following properties : 
+
 | Property         | Type   | Description                                   |
 | ---------------- | ------ | --------------------------------------------- |
 | `public_id` | string | public_id of the file to be transformed |
@@ -52,6 +53,7 @@ This function renames the given asset
 You can use the cloudinary **rename function** by sending a `PUT` HTTP-request to this route : `https://<host>:<port>/_plugin/kuzzle-plugin-cloudinary/assets`
 
 The body must contain the following properties : 
+
 | Property         | Type   | Description                                   |
 | ---------------- | ------ | --------------------------------------------- |
 | `from_public_id` | string | public_id of the file to be renamed |
@@ -63,6 +65,7 @@ This function deletes the given asset
 You can use the cloudinary **destroy function** by sending a `DELETE` HTTP-request to this route : `https://<host>:<port>/_plugin/kuzzle-plugin-cloudinary/assets`
 
 The body must contain the following properties : 
+
 | Property         | Type   | Description                                   |
 | ---------------- | ------ | --------------------------------------------- |
 |`public_id`|string|public_id of the file to be deleted|
@@ -75,6 +78,7 @@ This function adds the given tag to the given assets
 You can use the cloudinary **add_tag function** by sending a `POST` HTTP-request to this route : `https://<host>:<port>/_plugin/kuzzle-plugin-cloudinary/tags`
 
 The body must contain the following properties : 
+
 | Property         | Type   | Description                                   |
 | ---------------- | ------ | --------------------------------------------- |
 |`public_id`|string or [string]|the public_id of the asset to be edited. <br> **Can concern many assets if you use an array of strings !** <br>*Be aware of whitespace since Cloudinary authorizes whitespace in the public_id syntax*   |
@@ -88,6 +92,7 @@ This function replace all the current tag of the given assets by the given tag
 You can use the cloudinary **replace_tag function** by sending a `PUT` HTTP-request to this route : `https://<host>:<port>/_plugin/kuzzle-plugin-cloudinary/tags`
 
 The body must contain the following properties : 
+
 | Property         | Type   | Description                                   |
 | ---------------- | ------ | --------------------------------------------- |
 |`public_id`|string or [string]|the public_id of the asset to be edited. <br> **Can concern many assets if you use an array of strings !** <br>*Be aware of whitespace since Cloudinary authorizes whitespace in the public_id syntax*   |
@@ -101,6 +106,7 @@ This function removes the given tag from the given assets
 You can use the cloudinary **remove_tag function** by sending a `DELETE` HTTP-request to this route : `https://<host>:<port>/_plugin/kuzzle-plugin-cloudinary/tags`
 
 The body must contain the following properties : 
+
 | Property         | Type   | Description                                   |
 | ---------------- | ------ | --------------------------------------------- |
 |`public_id`|string or [string]|the public_id of the asset to be edited. <br> **Can concern many assets if you use an array of strings !** <br>*Be aware of whitespace since Cloudinary authorizes whitespace in the public_id syntax*   |
@@ -114,6 +120,7 @@ This function removes all tags from the given assets
 You can use the cloudinary **remove_all_tags function** by sending a `DELETE` HTTP-request to this route : `https://<host>:<port>/_plugin/kuzzle-plugin-cloudinary/tags/removeAll`
 
 The body must contain the following properties : 
+
 | Property         | Type   | Description                                   |
 | ---------------- | ------ | --------------------------------------------- |
 |`public_id`|string or [string]|the public_id of the asset to be edited. <br> **Can concern many assets if you use an array of strings !** <br>*Be aware of whitespace since Cloudinary authorizes whitespace in the public_id syntax*   |
@@ -122,7 +129,7 @@ For more information see the [Cloudinary tags methods][cloudinary tags doc]
 
 ## Error handling 
 
-All tag methods can throw a `206 PartialError` if at least one ressources had not been updated : This error will contain all the errors encountered during the request. 
+All tag methods can throw a `206 PartialError` if at least one resource has not been updated : This error will contain all the errors encountered during the request. 
 
 ## Configuration 
 
