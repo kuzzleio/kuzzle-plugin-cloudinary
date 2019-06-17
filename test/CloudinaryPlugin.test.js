@@ -14,11 +14,7 @@ describe('CloudinaryPlugin', () => {
   const cloudinaryMock = new CloudinaryMock();
 
   beforeEach(() => {
-    const config = {
-      'cloudinaryCloudName': 'cloudName',
-      'cloudinaryApiKey': 'cloud_api_key',
-      'cloudinaryApiSecret': 'cloud_api_secret'
-    };
+    const config = {};
 
     context = new ContextMock();
     request = new RequestMock();
@@ -36,17 +32,19 @@ describe('CloudinaryPlugin', () => {
   });
 
   describe('#configuration', () => {
-    it('should warn user if no config is given and if in development env', () => {
+    it('should warn user if no secrest is given and if in development env', () => {
       process.env.NODE_ENV = 'development';
+      delete context.secrets.cloudinary;
+
       cloudinaryPlugin.init({}, context);
 
       return should(context.log.error).be.called();
     });
 
-    it('should throw internal error in production if no config is given', () => {
+    it('should throw internal error in production if no secret is given', () => {
+      delete context.secrets.cloudinary;
 
       return should.throws(() => { cloudinaryPlugin.init({}, context); });
-
     });
   });
 

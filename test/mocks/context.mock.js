@@ -1,4 +1,4 @@
-const 
+const
   RequestMock = require('./request.mock'),
   KuzzleErrors = require('kuzzle-common-objects').errors,
   sinon = require('sinon');
@@ -51,6 +51,14 @@ class ContextMock {
       error: sinon.stub(),
       info: sinon.stub(),
       warn: sinon.stub()
+    };
+
+    this.secrets = {
+      cloudinary: {
+        'APIKey': 'an api key',
+        'APISecret': 'a very important secret',
+        'cloudName': 'my cloud'
+      }
     };
   }
 }
