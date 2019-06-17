@@ -94,19 +94,6 @@ describe('CloudinaryPlugin', () => {
           return should(cloudinaryMock.v2.search.expression).be.calledWith('mySearch');
         });
     });
-
-    // it('should get the secure url of the search result', async () => {
-    //   request.init({
-    //     input: {
-    //       args: {
-    //         expression: 'test'
-    //       }
-    //     }
-    //   });
-    //   const res = await cloudinaryPlugin.search(request);
-    //   should(res).be.eql(cloudinary_fake_response.resources.map(v => v.secure_url));
-    // });
-
   });
 
   describe('#upload', () => {
@@ -281,7 +268,6 @@ describe('CloudinaryPlugin', () => {
         input: {
           args: {
             public_id: ['id1', 'id2'],
-
           }
         }
       });
