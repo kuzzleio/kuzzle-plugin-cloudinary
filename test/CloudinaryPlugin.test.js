@@ -36,14 +36,14 @@ describe('CloudinaryPlugin', () => {
   });
 
   describe('#configuration', () => {
-    it('should warn user if no config is given', () => {
+    it('should warn user if no config is given and if in development env', () => {
+      process.env.NODE_ENV = 'development';
       cloudinaryPlugin.init({}, context);
 
       return should(context.log.error).be.called();
     });
 
     it('should throw internal error in production if no config is given', () => {
-      process.env.NODE_ENV = 'production';
 
       return should.throws(() => { cloudinaryPlugin.init({}, context); });
 

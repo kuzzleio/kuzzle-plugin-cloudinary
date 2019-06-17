@@ -39,3 +39,18 @@ jobs:
         - npm run unit-testing
       after_script:
         - npm run codecov
+
+    - stage: "Tests"
+      name: "Unit tests - Node.js 10"
+      os: linux
+      sudo: required
+      language: node_js
+      node_js: 
+        - 10
+      cache: npm
+      install:
+        - npm install --silent
+      script:
+        - npm run unit-testing
+      after_script:
+        - npm run codecov

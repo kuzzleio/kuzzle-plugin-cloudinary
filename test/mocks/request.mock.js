@@ -1,9 +1,5 @@
 class RequestMock {
   constructor() {
-    // Object.entries(args).forEach(([key, value]) => {
-    //   this[key] = value;
-    // });
-
     this.context = {};
     this.input = {};
     this.result = {};
