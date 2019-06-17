@@ -10,6 +10,7 @@ class CloudinaryMock {
           execute: sinon.stub().returns({ resources: []})
         })
       },
+      url: sinon.stub().returns({result: 'a link'}),
       uploader: {
         upload: sinon.stub(),
         rename: sinon.stub(),

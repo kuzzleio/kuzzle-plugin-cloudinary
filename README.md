@@ -8,6 +8,8 @@ Cloudinary is cloud-based image and video management platform. It automates the 
 
 This plugin will let you use some of Cloudinary API's functions within Kuzzle. 
 
+***This plugin is available for 1.8.1 and higher version of Kuzzle***
+
 ## Usage
  
 Here are the existing routes (Note that all of these are preceded by `https://<host>:<port>/_plugin/kuzzle-plugin-cloudinary`) 
@@ -124,18 +126,20 @@ All tag methods can throw a `206 PartialError` if at least one ressources had no
 
 ## Configuration 
 
-In order to use this plugin, you **need to provide your Cloudinary credentials** in the `.kuzzlerc` configuration file. 
+In order to use this plugin, you **need to provide your Cloudinary credentials** in the Vault.
 
-Here is the template of the needed configuration : 
+Here is the template of the needed structure :
 ```json 
-"plugins": {
-  "kuzzle-plugin-cloudinary": {
-    "cloudinaryCloudName": "your-cloudinary-cloud-name",
-    "cloudinaryApiKey": "your-cloudinary-api-key",
-    "cloudinaryApiSecret": "your-cloudinary-api-secret"
+{
+  "cloudinary": {
+    "APIKey":  "your-cloudinary-api-key",
+    "APISecret": "your-cloudinary-api-secret",
+    "cloudName": "your-cloudinary-cloudname"
   }
 }
 ```
+
+You can find more about Vault feature on the [Kuzzle documentation][kuzzle vault doc]
 
 ## Installation 
 
@@ -152,4 +156,5 @@ ln -sr ./ ../../plugins/enabled/kuzzle-plugin-cloudinary
 
 [cloudinary tags doc]: https://cloudinary.com/documentation/image_upload_api_reference#tags_method
 [cloudinary expression doc]: https://cloudinary.com/documentation/search_api#expressions
-[cloudinary transformation doc]: https://cloudinary.com/documentation/image_transformation_reference 
+[cloudinary transformation doc]: https://cloudinary.com/documentation/image_transformation_reference
+[kuzzle vault doc]: https://docs.kuzzle.io/core/1/guides/essentials/secrets-vault/
