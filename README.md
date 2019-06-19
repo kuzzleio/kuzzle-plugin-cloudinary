@@ -12,7 +12,7 @@ This plugin will let you use some of Cloudinary API's functions within Kuzzle.
 
 ## Usage
  
-Here are the existing routes (Note that all of these are preceded by `http://<host>:<port>/_plugin/kuzzle-plugin-cloudinary`) 
+Here are the existing routes (Note that all of these are preceded by `http://<host>:<port>/_plugin/cloudinary`) 
 
 | HTTP Verb | Route |Description | 
 | :---- | :---- | :---- | 
@@ -30,7 +30,7 @@ Here are the existing routes (Note that all of these are preceded by `http://<ho
 #### `search` function
 This function searches for assets corresponding to the given expression
 
-You can use the cloudinary **search function** by sending a `GET` HTTP-request to this route : `http://<host>:<port>/_plugin/kuzzle-plugin-cloudinary/assets/:expression`
+You can use the cloudinary **search function** by sending a `GET` HTTP-request to this route : `http://<host>:<port>/_plugin/cloudinary/assets/:expression`
 
 The expression must be a descriptive string of your research. For more informations on the syntax of this string, check the [Cloudinary documentation about Expressions][cloudinary expression doc]
 
@@ -38,7 +38,7 @@ The expression must be a descriptive string of your research. For more informati
 This function returns an url to access the given asset with the given transformations
 
 You can use the **transform function** by sending a `GET` HTTP-request to this route : 
-`http://<host>:<port>/_plugin/kuzzle-plugin-cloudinary/assets/transform`
+`http://<host>:<port>/_plugin/cloudinary/assets/transform`
 
 The body must contain the following properties : 
 
@@ -50,7 +50,7 @@ The body must contain the following properties :
 #### `rename` function 
 This function renames the given asset
 
-You can use the cloudinary **rename function** by sending a `PUT` HTTP-request to this route : `http://<host>:<port>/_plugin/kuzzle-plugin-cloudinary/assets`
+You can use the cloudinary **rename function** by sending a `PUT` HTTP-request to this route : `http://<host>:<port>/_plugin/cloudinary/assets`
 
 The body must contain the following properties : 
 
@@ -62,7 +62,7 @@ The body must contain the following properties :
 #### `destroy` function 
 This function deletes the given asset
 
-You can use the cloudinary **destroy function** by sending a `DELETE` HTTP-request to this route : `http://<host>:<port>/_plugin/kuzzle-plugin-cloudinary/assets`
+You can use the cloudinary **destroy function** by sending a `DELETE` HTTP-request to this route : `http://<host>:<port>/_plugin/cloudinary/assets`
 
 The body must contain the following properties : 
 
@@ -75,7 +75,7 @@ The body must contain the following properties :
 #### `add_tag` function 
 This function adds the given tag to the given assets
 
-You can use the cloudinary **add_tag function** by sending a `POST` HTTP-request to this route : `http://<host>:<port>/_plugin/kuzzle-plugin-cloudinary/tags`
+You can use the cloudinary **add_tag function** by sending a `POST` HTTP-request to this route : `http://<host>:<port>/_plugin/cloudinary/tags`
 
 The body must contain the following properties : 
 
@@ -89,7 +89,7 @@ For more information see the [Cloudinary tags methods][cloudinary tags doc]
 #### `replace_tag` function 
 This function replace all the current tag of the given assets by the given tag
 
-You can use the cloudinary **replace_tag function** by sending a `PUT` HTTP-request to this route : `http://<host>:<port>/_plugin/kuzzle-plugin-cloudinary/tags`
+You can use the cloudinary **replace_tag function** by sending a `PUT` HTTP-request to this route : `http://<host>:<port>/_plugin/cloudinary/tags`
 
 The body must contain the following properties : 
 
@@ -103,7 +103,7 @@ For more information see the [Cloudinary tags methods][cloudinary tags doc]
 #### `remove_tag` function
 This function removes the given tag from the given assets 
 
-You can use the cloudinary **remove_tag function** by sending a `DELETE` HTTP-request to this route : `http://<host>:<port>/_plugin/kuzzle-plugin-cloudinary/tags`
+You can use the cloudinary **remove_tag function** by sending a `DELETE` HTTP-request to this route : `http://<host>:<port>/_plugin/cloudinary/tags`
 
 The body must contain the following properties : 
 
@@ -117,7 +117,7 @@ For more information see the [Cloudinary tags methods][cloudinary tags doc]
 #### `remove_all_tags` function 
 This function removes all tags from the given assets
 
-You can use the cloudinary **remove_all_tags function** by sending a `DELETE` HTTP-request to this route : `http://<host>:<port>/_plugin/kuzzle-plugin-cloudinary/tags/remove_all`
+You can use the cloudinary **remove_all_tags function** by sending a `DELETE` HTTP-request to this route : `http://<host>:<port>/_plugin/cloudinary/tags/remove_all`
 
 The body must contain the following properties : 
 
@@ -155,10 +155,10 @@ You can find more about Vault feature on the [Kuzzle documentation][kuzzle vault
 Clone this repository in your `plugin/available` directory, install all needed modules with `npm install` and then link this directory to your `plugin/enabled` directory. 
 
 ```bash 
-git clone https://github.com/kuzzleio/kuzzle-plugin-cloudinary.git /path-of-your-kuzzle/plugins/available 
-cd /path-of-your-kuzzle/plugins/available/kuzzle-plugin-cloudinary
+git clone https://github.com/kuzzleio/kuzzle-plugin-cloudinary.git /path-of-your-kuzzle/plugins/available cloudinary
+cd /path-of-your-kuzzle/plugins/available/cloudinary/
 npm install 
-ln -sr ./ ../../plugins/enabled/kuzzle-plugin-cloudinary 
+ln -sr ./ ../../plugins/enabled/cloudinary 
 ```
 
 [cloudinary tags doc]: https://cloudinary.com/documentation/image_upload_api_reference#tags_method
