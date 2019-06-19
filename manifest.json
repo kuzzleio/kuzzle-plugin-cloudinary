@@ -1,4 +1,4 @@
 {
-  "name": "kuzzle-plugin-cloudinary",
-  "kuzzleVersion": ">=1.8.1 <2.0.0"
+  "name": "cloudinary",
+  "kuzzleVersion": ">=1.8.2 <2.0.0"
 }
