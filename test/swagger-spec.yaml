@@ -163,9 +163,8 @@ paths:
             schema:
                 $ref: '#/components/schemas/TagRequestBody'
             example: 
-                value : 
-                  public_id: "sample"
-                  tag: "a tag"
+              public_id: "sample"
+              tag: "a tag"
             
       responses:
         200:
@@ -195,9 +194,8 @@ paths:
             schema:
                 $ref: '#/components/schemas/TagRequestBody'
             example: 
-                value : 
-                  public_id: "sample"
-                  tag: "a tag to rule them all"
+              public_id: "sample"
+              tag: "a tag to rule them all"
             
       responses:
         200:
@@ -227,9 +225,8 @@ paths:
             schema:
                 $ref: '#/components/schemas/TagRequestBody'
             example: 
-                value : 
-                  public_id: "sample"
-                  tag: "the tag is a lie"
+              public_id: "sample"
+              tag: "the tag is a lie"
             
       responses:
         200:
@@ -271,8 +268,7 @@ paths:
                         type: string
                     - type: string 
             example: 
-                value : 
-                  public_id: "sample"
+              public_id: "sample"
       responses:
         200:
           description: OK (returns all updated public_id)

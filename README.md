@@ -8,6 +8,8 @@ Cloudinary is cloud-based image and video management platform. It automates the 
 
 This plugin will let you use some of Cloudinary API's functions within Kuzzle. 
 
+You can test this plugin with Swagger UI. Find more in the [Testing section](#testing)
+
 ***This plugin is available for 1.8.2 and higher version of Kuzzle***
 
 ## Usage
@@ -160,6 +162,15 @@ cd /path-of-your-kuzzle/plugins/available/cloudinary/
 npm install 
 ln -sr ./ ../../plugins/enabled/cloudinary 
 ```
+
+## Testing 
+
+If you want to test this plugin, you can use the [Swagger UI online tool](https://petstore.swagger.io)
+
+1) Run Kuzzle with the plugin installed (See [Installation section](#Installation)) **Make sure it is correctly [configured](#Configuration) with your Cloudinary credentials**
+2) Go on the [Swagger UI online tool](https://petstore.swagger.io)
+3) Enter the following link `https://raw.githubusercontent.com/kuzzleio/kuzzle-plugin-cloudinary/master/test/swagger-spec.yaml` and click `Explore`
+4) You have now the details of all available requests, and you can try these out.
 
 [cloudinary tags doc]: https://cloudinary.com/documentation/image_upload_api_reference#tags_method
 [cloudinary expression doc]: https://cloudinary.com/documentation/search_api#expressions
