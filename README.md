@@ -17,7 +17,7 @@ Here are the existing routes (Note that all of these are preceded by `http://<ho
 | HTTP Verb | Route |Description | 
 | :---- | :---- | :---- | 
 | GET | [/assets/:expression](#search-function) | Searches for some assets corresponding to the expression | 
-| GET | [/assets/transform](#transform-function)  | Returns the url of an asset with some transformation |
+| POST | [/assets/transform](#transform-function)  | Returns the url of an asset with some transformation |
 | PUT | [/assets](#rename-function)  | Renames an asset |
 | DELETE | [/assets](#destroy-function)  | Deletes an asset |
 | POST | [/tags](#add_tag-function)  | Adds a tag to one or many assets | 
@@ -37,7 +37,7 @@ The expression must be a descriptive string of your research. For more informati
 #### `transform` function
 This function returns an url to access the given asset with the given transformations
 
-You can use the **transform function** by sending a `GET` HTTP-request to this route : 
+You can use the **transform function** by sending a `POST` HTTP-request to this route : 
 `http://<host>:<port>/_plugin/cloudinary/assets/transform`
 
 The body must contain the following properties : 
