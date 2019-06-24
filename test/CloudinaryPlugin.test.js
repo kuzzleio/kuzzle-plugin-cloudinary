@@ -236,7 +236,7 @@ describe('CloudinaryPlugin', () => {
       return cloudinaryPlugin.addTag(request)
         .then(() => {
 
-          should(cloudinaryMock.v2.uploader.addTag).be.calledWith('tag', ['id1', 'id2']);
+          should(cloudinaryMock.v2.uploader.add_tag).be.calledWith('tag', ['id1', 'id2']);
           should(cloudinaryPlugin._handleError).be.called();
         });
     });
@@ -269,7 +269,7 @@ describe('CloudinaryPlugin', () => {
       return cloudinaryPlugin.replaceTag(request)
         .then(() => {
 
-          should(cloudinaryMock.v2.uploader.replaceTag).be.calledWith('tag', ['id1', 'id2']);
+          should(cloudinaryMock.v2.uploader.replace_tag).be.calledWith('tag', ['id1', 'id2']);
         });
     });
   });
@@ -303,7 +303,7 @@ describe('CloudinaryPlugin', () => {
       return cloudinaryPlugin.removeTag(request)
         .then(() => {
 
-          should(cloudinaryMock.v2.uploader.removeTag).be.calledWith('tag', ['id1', 'id2']);
+          should(cloudinaryMock.v2.uploader.remove_tag).be.calledWith('tag', ['id1', 'id2']);
           should(cloudinaryPlugin._handleError).be.called();
         });
     });
@@ -336,7 +336,7 @@ describe('CloudinaryPlugin', () => {
       return cloudinaryPlugin.removeAllTags(request)
         .then(() => {
 
-          should(cloudinaryMock.v2.uploader.removeAllTags).be.calledWith(['id1', 'id2']);
+          should(cloudinaryMock.v2.uploader.remove_all_tags).be.calledWith(['id1', 'id2']);
           should(cloudinaryPlugin._handleError).be.called();
         });
     });

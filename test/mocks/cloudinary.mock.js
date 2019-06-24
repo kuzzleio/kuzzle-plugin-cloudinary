@@ -15,10 +15,10 @@ class CloudinaryMock {
         upload: sinon.stub(),
         rename: sinon.stub(),
         destroy: sinon.stub().returns({result: ''}),
-        addTag: sinon.stub().returns({public_ids: ['id1','id2']}),
-        removeTag: sinon.stub().returns({public_ids: ['id1','id2']}),
-        removeAllTags: sinon.stub().returns({public_ids: ['id1','id2']}),
-        replaceTag: sinon.stub().returns({public_ids: ['id1','id2']})
+        add_tag: sinon.stub().returns({public_ids: ['id1','id2']}),
+        remove_tag: sinon.stub().returns({public_ids: ['id1','id2']}),
+        remove_all_tags: sinon.stub().returns({public_ids: ['id1','id2']}),
+        replace_tag: sinon.stub().returns({public_ids: ['id1','id2']})
       }
     };
   }
