@@ -207,7 +207,7 @@ describe('CloudinaryPlugin', () => {
     });
   });
 
-  describe('#add_tag', () => {
+  describe('#addTag', () => {
     beforeEach(() => {
       request.init({
         input: {
@@ -222,7 +222,7 @@ describe('CloudinaryPlugin', () => {
     it('should fetch for several public_ids and a tag', () => {
       sinon.spy(cloudinaryPlugin, '_getArg');
 
-      return cloudinaryPlugin.add_tag(request)
+      return cloudinaryPlugin.addTag(request)
         .then(() => {
 
           should(cloudinaryPlugin._getArg).be.calledWith(request.input.body, 'public_id', true);
@@ -230,19 +230,19 @@ describe('CloudinaryPlugin', () => {
         });
     });
 
-    it('should call cloudinary add_tag function & error handler', () => {
+    it('should call cloudinary addTag function & error handler', () => {
       sinon.spy(cloudinaryPlugin, '_handleError');
 
-      return cloudinaryPlugin.add_tag(request)
+      return cloudinaryPlugin.addTag(request)
         .then(() => {
 
-          should(cloudinaryMock.v2.uploader.add_tag).be.calledWith('tag', ['id1', 'id2']);
+          should(cloudinaryMock.v2.uploader.addTag).be.calledWith('tag', ['id1', 'id2']);
           should(cloudinaryPlugin._handleError).be.called();
         });
     });
   });
 
-  describe('#replace_tag', () => {
+  describe('#replaceTag', () => {
     beforeEach(() => {
       request.init({
         input: {
@@ -257,7 +257,7 @@ describe('CloudinaryPlugin', () => {
     it('should fetch for several public_ids', () => {
       sinon.spy(cloudinaryPlugin, '_getArg');
 
-      return cloudinaryPlugin.replace_tag(request)
+      return cloudinaryPlugin.replaceTag(request)
         .then(() => {
 
           should(cloudinaryPlugin._getArg).be.calledWith(request.input.body, 'public_id', true);
@@ -266,15 +266,15 @@ describe('CloudinaryPlugin', () => {
     });
 
     it('should call the cloudinary replace tag function and the error handler', () => {
-      return cloudinaryPlugin.replace_tag(request)
+      return cloudinaryPlugin.replaceTag(request)
         .then(() => {
 
-          should(cloudinaryMock.v2.uploader.replace_tag).be.calledWith('tag', ['id1', 'id2']);
+          should(cloudinaryMock.v2.uploader.replaceTag).be.calledWith('tag', ['id1', 'id2']);
         });
     });
   });
 
-  describe('#remove_tag', () => {
+  describe('#removeTag', () => {
     beforeEach(() => {
       request.init({
         input: {
@@ -289,7 +289,7 @@ describe('CloudinaryPlugin', () => {
     it('should fetch for several public_ids and a tag', () => {
       sinon.spy(cloudinaryPlugin, '_getArg');
 
-      return cloudinaryPlugin.remove_tag(request)
+      return cloudinaryPlugin.removeTag(request)
         .then(() => {
 
           should(cloudinaryPlugin._getArg).be.calledWith(request.input.body, 'public_id', true);
@@ -300,16 +300,16 @@ describe('CloudinaryPlugin', () => {
     it('should call the cloudinary remove tag function and the error handler', () => {
       sinon.spy(cloudinaryPlugin, '_handleError');
 
-      return cloudinaryPlugin.remove_tag(request)
+      return cloudinaryPlugin.removeTag(request)
         .then(() => {
 
-          should(cloudinaryMock.v2.uploader.remove_tag).be.calledWith('tag', ['id1', 'id2']);
+          should(cloudinaryMock.v2.uploader.removeTag).be.calledWith('tag', ['id1', 'id2']);
           should(cloudinaryPlugin._handleError).be.called();
         });
     });
   });
 
-  describe('#remove_all_tags', () => {
+  describe('#removeAllTags', () => {
     beforeEach(() => {
       request.init({
         input: {
@@ -323,7 +323,7 @@ describe('CloudinaryPlugin', () => {
     it('should fetch for several public_ids', () => {
       sinon.spy(cloudinaryPlugin, '_getArg');
 
-      return cloudinaryPlugin.remove_all_tags(request)
+      return cloudinaryPlugin.removeAllTags(request)
         .then(() => {
 
           should(cloudinaryPlugin._getArg).be.calledWith(request.input.body, 'public_id', true);
@@ -333,10 +333,10 @@ describe('CloudinaryPlugin', () => {
     it('should call the cloudinary remove all tags function and the error handler', () => {
       sinon.spy(cloudinaryPlugin, '_handleError');
 
-      return cloudinaryPlugin.remove_all_tags(request)
+      return cloudinaryPlugin.removeAllTags(request)
         .then(() => {
 
-          should(cloudinaryMock.v2.uploader.remove_all_tags).be.calledWith(['id1', 'id2']);
+          should(cloudinaryMock.v2.uploader.removeAllTags).be.calledWith(['id1', 'id2']);
           should(cloudinaryPlugin._handleError).be.called();
         });
     });
