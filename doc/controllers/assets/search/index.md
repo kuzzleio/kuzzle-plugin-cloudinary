@@ -15,7 +15,7 @@ Searches for assets corresponding to the specified expression and options
 ### HTTP 
 
 ```http
-URL: http://kuzzle:7512/_plugin/cloudinary/assets
+URL: http://kuzzle:7512/_plugin/cloudinary/assets/search
 Method: POST
 ```
 

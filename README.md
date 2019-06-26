@@ -18,13 +18,13 @@ Here are the existing routes (Note that all of these are preceded by `http://<ho
 
 | HTTP Verb | Route |Description | 
 | :---- | :---- | :---- | 
-| GET | [/assets/:expression](#search-function) | Searches for some assets corresponding to the expression | 
+| POST | [/assets/search](#search-function) | Searches for some assets corresponding to an expression | 
 | POST | [/assets/transform](#transform-function)  | Returns the url of an asset with some transformation |
-| PUT | [/assets](#rename-function)  | Renames an asset |
-| DELETE | [/assets](#destroy-function)  | Deletes an asset |
-| POST | [/tags](#add_tag-function)  | Adds a tag to one or many assets | 
-| PUT | [/tags](#replace_tag-function)  | Replaces all the tags from one or many assets by another tag |
-| DELETE | [/tags](#remove_tag-function)  | Deletes a tag from one or many assets | 
+| PUT | [/assets/<public_id>](#rename-function)  | Renames an asset |
+| DELETE | [/assets/<public_id>](#destroy-function)  | Deletes an asset |
+| POST | [/tags/<tag>](#add_tag-function)  | Adds a tag to one or many assets | 
+| PUT | [/tags/<tag>](#replace_tag-function)  | Replaces all the tags from one or many assets by another tag |
+| DELETE | [/tags/<tag>](#remove_tag-function)  | Deletes a tag from one or many assets | 
 | DELETE | [/tags/remove_all](#remove_all_tags-function)  | Deletes all the tags from one or many assets | 
 
 ### Assets controller
@@ -32,9 +32,71 @@ Here are the existing routes (Note that all of these are preceded by `http://<ho
 #### `search` function
 This function searches for assets corresponding to the given expression
 
-You can use the cloudinary **search function** by sending a `GET` HTTP-request to this route : `http://<host>:<port>/_plugin/cloudinary/assets/:expression`
+You can use the cloudinary **search function** by sending a `POST` HTTP-request to this route : `http://<host>:<port>/_plugin/cloudinary/assets/search`
 
 The expression must be a descriptive string of your research. For more informations on the syntax of this string, check the [Cloudinary documentation about Expressions][cloudinary expression doc]
+
+##### Request format 
+```js
+{
+  "controller": "cloudinary/assets",
+  "action": "search",
+
+  "expression": "<expression>",
+  "max_results": "<number_of_result_max>",
+  "next_cursor": "<next-cursor>",
+  "with_field": [ "<additional_field_to_include>" ],
+  "sort_by": [  ["<field>","<asc | desc>"] ]
+}
+```
+
+**You must provide, at least, either the `expression` or the `next_cursor` field. If both are set, `expression` will be ignored** 
+
+You can find more info [here](https://cloudinary.com/documentation/search_api#parameters)
+
+##### Response format 
+
+```js
+{
+  "status": 200,
+  "error": null,
+  "controller": "cloudinary/assets",
+  "action": "destroy",
+  "requestId": "<unique request identifier>",
+  "result": {
+      "total_count": "<number_of_resources>",
+      "time": "<request_processing_time>",
+      "next_cursor": "<cursor_for_following_request>",
+      "resources" : [ 
+          {
+              "public_id": "<new_public_id>",
+              "folder": "<folder>",
+              "filename": "<filename>",
+              "format": "<format>",
+              "resource_type": "<ressource_type>",
+              "type": "<type>",
+              "created_at": "<creation_date>",
+              "bytes": "<size>",
+              "backup_bytes": 0,
+              "width": "<width>",
+              "height": "<height>",
+              "aspect_ratio": "<ratio>",
+              "pixels": "<number_of_pixels>",
+              "url": "<url>",
+              "secure_url": "<secure_url>",
+              "status": "<status>",
+              "access_mode": "<access_mode>",
+          }
+      ],
+      "rate_limit_allowed": "<initial_request_limit>",
+      "rate_limit_reset_at": "<date_of_reset>",
+      "rate_limit_remaining": "<current_request_limit>"
+      
+  }
+}
+```
+
+For more information on search response, see [Cloudinary documentation](https://cloudinary.com/documentation/search_api#response)
 
 #### `transform` function
 This function returns an url to access the given asset with the given transformations
@@ -42,44 +104,147 @@ This function returns an url to access the given asset with the given transforma
 You can use the **transform function** by sending a `POST` HTTP-request to this route : 
 `http://<host>:<port>/_plugin/cloudinary/assets/transform`
 
-The body must contain the following properties : 
+##### Request format 
+```js
+{
+  "controller": "cloudinary/assets",
+  "action": "transform",
+
+	"public_id" : "sample", 
+	"transformation" : {
+		"width" : 400,
+		"radius" : "100:0:100:100"
+	}
+}
+```
+
+The request body must contain the following properties : 
 
 | Property         | Type   | Description                                   |
 | ---------------- | ------ | --------------------------------------------- |
 | `public_id` | string | public_id of the file to be transformed |
 | `transformation`   | JSON | a json describing all the transformations you want to apply to the asset. See [Cloudinary transformation guides][cloudinary transformation doc]     |
 
+##### Response format 
+```js
+{
+  "status": 200,
+  "error": null,
+  "controller": "cloudinary/assets",
+  "action": "transform",
+  "requestId": "<unique request identifier>",
+  "result": "<transformed_asset_url>"
+}
+```
+
 #### `rename` function 
 This function renames the given asset
 
-You can use the cloudinary **rename function** by sending a `PUT` HTTP-request to this route : `http://<host>:<port>/_plugin/cloudinary/assets`
+You can use the cloudinary **rename function** by sending a `PUT` HTTP-request to this route : `http://<host>:<port>/_plugin/cloudinary/assets/<public_id>`
 
-The body must contain the following properties : 
+:warning: Be aware that Cloudinary allows special characters in the public_id syntax. You may need to encode the public id with escape character
+
+##### Request format 
+```js
+{
+  "controller": "cloudinary/assets",
+  "action": "rename",
+
+  "public_id": "old_name",
+  "new_public_id": "new_name"
+}
+```
+
+The request must contain the following properties : 
 
 | Property         | Type   | Description                                   |
 | ---------------- | ------ | --------------------------------------------- |
-| `from_public_id` | string | public_id of the file to be renamed |
-| `to_public_id`   | string | new public_id of the file           |
+| `public_id` | string | public_id of the file to be renamed |
+| `new_public_id`   | string | new public_id of the file           |
+
+##### Response format 
+```js
+{
+  "status": 200,
+  "error": null,
+  "controller": "cloudinary/assets",
+  "action": "destroy",
+  "requestId": "<unique request identifier>",
+  "result": {
+      "public_id": "<new_public_id>",
+      "width": "<width>",
+      "height": "<height>",
+      "format": "<format>",
+      "resource_type": "<ressource_type>",
+      "created_at": "<creation_date>",
+      "tags": [
+          "<tag>"
+      ],
+      "bytes": "<size>",
+      "type": "<type>",
+      "placeholder": "<placeholder>",
+      "url": "<url>",
+      "secure_url": "<secure_url>"
+  }
+}
+```
 
 #### `destroy` function 
 This function deletes the given asset
 
-You can use the cloudinary **destroy function** by sending a `DELETE` HTTP-request to this route : `http://<host>:<port>/_plugin/cloudinary/assets`
+You can use the cloudinary **destroy function** by sending a `DELETE` HTTP-request to this route : `http://<host>:<port>/_plugin/cloudinary/assets/<public_id>`
 
-The body must contain the following properties : 
+:warning: Be aware that Cloudinary allows special characters in the public_id syntax. You may need to encode the public id with escape character
+
+##### Request format
+```js
+{
+  "controller": "cloudinary/assets",
+  "action": "destroy",
+  "public_id": "sample"
+}
+```
+
+The request must contain the following properties : 
 
 | Property         | Type   | Description                                   |
 | ---------------- | ------ | --------------------------------------------- |
 |`public_id`|string|public_id of the file to be deleted|
+
+
+##### Response format 
+```js
+{
+  "status": 200,
+  "error": null,
+  "controller": "cloudinary/assets",
+  "action": "destroy",
+  "requestId": "<unique request identifier>",
+  "result": {
+      "result": "ok"
+  }
+}
+```
 
 ### Tags controller
 
 #### `add_tag` function 
 This function adds the given tag to the given assets
 
-You can use the cloudinary **add_tag function** by sending a `POST` HTTP-request to this route : `http://<host>:<port>/_plugin/cloudinary/tags`
+You can use the cloudinary **add_tag function** by sending a `POST` HTTP-request to this route : `http://<host>:<port>/_plugin/cloudinary/tags/<tag>`
 
-The body must contain the following properties : 
+##### Request format
+```js
+{
+  "controller": "cloudinary/tags",
+  "action": "addTag",
+
+	"public_id" : [ "sample", "sample2" ], 
+	"tag" : "<tag_to_add>"
+}
+```
+
+The request must contain the following properties : 
 
 | Property         | Type   | Description                                   |
 | ---------------- | ------ | --------------------------------------------- |
@@ -88,12 +253,40 @@ The body must contain the following properties :
 
 For more information see the [Cloudinary tags methods][cloudinary tags doc]
 
+##### Response format 
+```js
+{
+  "status": 200,
+  "error": null,
+  "controller": "cloudinary/tags",
+  "action": "addTag",
+  "requestId": "<unique request identifier>",
+  "result": {
+      "public_ids": [
+          "sample",
+          "sample2"
+      ] 
+  }
+}
+```
+
 #### `replace_tag` function 
 This function replace all the current tag of the given assets by the given tag
 
-You can use the cloudinary **replace_tag function** by sending a `PUT` HTTP-request to this route : `http://<host>:<port>/_plugin/cloudinary/tags`
+You can use the cloudinary **replace_tag function** by sending a `PUT` HTTP-request to this route : `http://<host>:<port>/_plugin/cloudinary/tags/<tag>`
 
-The body must contain the following properties : 
+##### Request format 
+```js
+{
+  "controller": "cloudinary/tags",
+  "action": "replaceTag",
+
+  "public_id" : [ "sample", "sample2" ],
+  "tag": "a_tag"
+}
+```
+
+The request must contain the following properties : 
 
 | Property         | Type   | Description                                   |
 | ---------------- | ------ | --------------------------------------------- |
@@ -102,12 +295,40 @@ The body must contain the following properties :
 
 For more information see the [Cloudinary tags methods][cloudinary tags doc]
 
+##### Response format 
+```js
+{
+    "status": 200,
+    "error": null,
+    "controller": "cloudinary/tags",
+    "action": "replaceTag",
+    "requestId": "<unique request identifier>",
+    "result": {
+        "public_ids": [
+            "sample",
+            "sample2"
+        ] 
+    }
+}
+```
+
 #### `remove_tag` function
 This function removes the given tag from the given assets 
 
-You can use the cloudinary **remove_tag function** by sending a `DELETE` HTTP-request to this route : `http://<host>:<port>/_plugin/cloudinary/tags`
+You can use the cloudinary **remove_tag function** by sending a `DELETE` HTTP-request to this route : `http://<host>:<port>/_plugin/cloudinary/tags/<tag>`
 
-The body must contain the following properties : 
+##### Request format 
+```js
+{
+    "controller": "cloudinary/tags",
+    "action": "removeTag",
+
+	"public_id" : [ "sample", "sample2" ],
+    "tag": "a_tag"
+}
+```
+
+The request must contain the following properties : 
 
 | Property         | Type   | Description                                   |
 | ---------------- | ------ | --------------------------------------------- |
@@ -116,18 +337,63 @@ The body must contain the following properties :
 
 For more information see the [Cloudinary tags methods][cloudinary tags doc]
 
+##### Response format 
+```js
+{
+    "status": 200,
+    "error": null,
+    "controller": "cloudinary/tags",
+    "action": "removeTag",
+    "requestId": "<unique request identifier>",
+    "result": {
+        "public_ids": [
+            "sample",
+            "sample2"
+        ] 
+    }
+}
+```
+
 #### `remove_all_tags` function 
 This function removes all tags from the given assets
 
 You can use the cloudinary **remove_all_tags function** by sending a `DELETE` HTTP-request to this route : `http://<host>:<port>/_plugin/cloudinary/tags/remove_all`
 
-The body must contain the following properties : 
+##### Request format 
+```js
+{
+    "controller": "cloudinary/tags",
+    "action": "removeAllTags",
+
+	"public_id" : [ "sample", "sample2" ] 
+}
+```
+
+The request must contain the following properties : 
 
 | Property         | Type   | Description                                   |
 | ---------------- | ------ | --------------------------------------------- |
 |`public_id`|string or [string]|the public_id of the asset to be edited. <br> **Can concern many assets if you use an array of strings !** <br>*Be aware of whitespace since Cloudinary authorizes whitespace in the public_id syntax*   |
 
 For more information see the [Cloudinary tags methods][cloudinary tags doc]
+
+##### Response format 
+
+```js
+{
+    "status": 200,
+    "error": null,
+    "controller": "cloudinary/tags",
+    "action": "removeAllTags",
+    "requestId": "<unique request identifier>",
+    "result": {
+        "public_ids": [
+            "sample",
+            "sample2"
+        ] 
+    }
+}
+```
 
 ## Error handling 
 

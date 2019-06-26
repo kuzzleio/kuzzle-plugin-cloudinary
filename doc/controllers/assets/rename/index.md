@@ -15,7 +15,7 @@ Renames the specified asset
 ### HTTP 
 
 ```http
-URL: http://kuzzle:7512/_plugin/cloudinary/assets/<from_public_id>
+URL: http://kuzzle:7512/_plugin/cloudinary/assets/<public_id>
 Method: PUT
 ```
 
@@ -28,16 +28,16 @@ Method: PUT
     "controller": "cloudinary/assets",
     "action": "rename",
 
-    "from_public_id": "old_name",
-    "to_public_id": "new_name"
+    "public_id": "old_name",
+    "new_public_id": "new_name"
 }
 ```
 ---
 
 ## Arguments 
 
-- `from_public_id`: current [public_id](https://cloudinary.com/documentation/upload_images#public_id_the_image_identifier) of the asset to rename
-- `to_public_id`: new [public_id](https://cloudinary.com/documentation/upload_images#public_id_the_image_identifier) of the asset 
+- `public_id`: current [public_id](https://cloudinary.com/documentation/upload_images#public_id_the_image_identifier) of the asset to rename
+- `new_public_id`: new [public_id](https://cloudinary.com/documentation/upload_images#public_id_the_image_identifier) of the asset 
 ---
 
 ## Response 

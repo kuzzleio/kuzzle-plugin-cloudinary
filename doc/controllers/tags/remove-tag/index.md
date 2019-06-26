@@ -15,7 +15,7 @@ Removes the specified tag from the specified asset(s)
 ### HTTP 
 
 ```http
-URL: http://kuzzle:7512/_plugin/cloudinary/tags
+URL: http://kuzzle:7512/_plugin/cloudinary/tags/<tag>
 Method: DELETE
 ```
 
