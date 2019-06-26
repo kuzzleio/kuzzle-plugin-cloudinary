@@ -71,7 +71,7 @@ describe('CloudinaryPlugin', () => {
     beforeEach(() => {
       request.init({
         input: {
-          args: {
+          body: {
             expression: 'mySearch'
           }
         }
@@ -84,7 +84,7 @@ describe('CloudinaryPlugin', () => {
       return cloudinaryPlugin.search(request)
         .then(() => {
 
-          should(cloudinaryPlugin._getArg).be.calledWith(request.input.args, 'expression');
+          should(cloudinaryPlugin._getArg).be.calledWith(request.input.body, 'expression');
         });
     });
 
@@ -136,9 +136,9 @@ describe('CloudinaryPlugin', () => {
     beforeEach(() => {
       request.init({
         input: {
-          body: {
-            from_public_id: 'testOld',
-            to_public_id: 'testNew'
+          args: {
+            public_id: 'testOld',
+            new_public_id: 'testNew'
           }
         }
       });
@@ -150,8 +150,8 @@ describe('CloudinaryPlugin', () => {
       return cloudinaryPlugin.rename(request)
         .then(() => {
 
-          should(cloudinaryPlugin._getArg).be.calledWith(request.input.body, 'from_public_id');
-          should(cloudinaryPlugin._getArg).be.calledWith(request.input.body, 'to_public_id');
+          should(cloudinaryPlugin._getArg).be.calledWith(request.input.args, 'public_id');
+          should(cloudinaryPlugin._getArg).be.calledWith(request.input.args, 'new_public_id');
         });
     });
 
@@ -174,7 +174,7 @@ describe('CloudinaryPlugin', () => {
     beforeEach(() => {
       request.init({
         input: {
-          body: {
+          args: {
             public_id: 'fileToDelete'
           }
         }
@@ -187,7 +187,7 @@ describe('CloudinaryPlugin', () => {
       return cloudinaryPlugin.destroy(request)
         .then(() => {
 
-          should(cloudinaryPlugin._getArg).be.calledWith(request.input.body, 'public_id');
+          should(cloudinaryPlugin._getArg).be.calledWith(request.input.args, 'public_id');
         });
 
     });
@@ -211,7 +211,7 @@ describe('CloudinaryPlugin', () => {
     beforeEach(() => {
       request.init({
         input: {
-          body: {
+          args: {
             public_id: ['id1', 'id2'],
             tag: 'tag'
           }
@@ -225,8 +225,8 @@ describe('CloudinaryPlugin', () => {
       return cloudinaryPlugin.addTag(request)
         .then(() => {
 
-          should(cloudinaryPlugin._getArg).be.calledWith(request.input.body, 'public_id', true);
-          should(cloudinaryPlugin._getArg).be.calledWith(request.input.body, 'tag');
+          should(cloudinaryPlugin._getArg).be.calledWith(request.input.args, 'public_id', true);
+          should(cloudinaryPlugin._getArg).be.calledWith(request.input.args, 'tag');
         });
     });
 
@@ -246,7 +246,7 @@ describe('CloudinaryPlugin', () => {
     beforeEach(() => {
       request.init({
         input: {
-          body: {
+          args: {
             public_id: ['id1', 'id2'],
             tag: 'tag'
           }
@@ -260,8 +260,8 @@ describe('CloudinaryPlugin', () => {
       return cloudinaryPlugin.replaceTag(request)
         .then(() => {
 
-          should(cloudinaryPlugin._getArg).be.calledWith(request.input.body, 'public_id', true);
-          should(cloudinaryPlugin._getArg).be.calledWith(request.input.body, 'tag');
+          should(cloudinaryPlugin._getArg).be.calledWith(request.input.args, 'public_id', true);
+          should(cloudinaryPlugin._getArg).be.calledWith(request.input.args, 'tag');
         });
     });
 
@@ -278,7 +278,7 @@ describe('CloudinaryPlugin', () => {
     beforeEach(() => {
       request.init({
         input: {
-          body: {
+          args: {
             public_id: ['id1', 'id2'],
             tag: 'tag'
           }
@@ -292,8 +292,8 @@ describe('CloudinaryPlugin', () => {
       return cloudinaryPlugin.removeTag(request)
         .then(() => {
 
-          should(cloudinaryPlugin._getArg).be.calledWith(request.input.body, 'public_id', true);
-          should(cloudinaryPlugin._getArg).be.calledWith(request.input.body, 'tag');
+          should(cloudinaryPlugin._getArg).be.calledWith(request.input.args, 'public_id', true);
+          should(cloudinaryPlugin._getArg).be.calledWith(request.input.args, 'tag');
         });
     });
 
@@ -313,7 +313,7 @@ describe('CloudinaryPlugin', () => {
     beforeEach(() => {
       request.init({
         input: {
-          body: {
+          args: {
             public_id: ['id1', 'id2'],
           }
         }
@@ -326,7 +326,7 @@ describe('CloudinaryPlugin', () => {
       return cloudinaryPlugin.removeAllTags(request)
         .then(() => {
 
-          should(cloudinaryPlugin._getArg).be.calledWith(request.input.body, 'public_id', true);
+          should(cloudinaryPlugin._getArg).be.calledWith(request.input.args, 'public_id', true);
         });
     });
 
