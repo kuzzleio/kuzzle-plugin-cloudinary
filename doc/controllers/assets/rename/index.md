@@ -19,7 +19,9 @@ URL: http://kuzzle:7512/_plugin/cloudinary/assets/<public_id>
 Method: PUT
 ```
 
-::: info Be aware that Cloudinary allows special characters in the public_id syntax. You may need to encode the public id with escape character :::
+::: info 
+Be aware that Cloudinary allows special characters in the public_id syntax. You may need to encode the public id with escape character 
+:::
 
 ### Other protocols 
 

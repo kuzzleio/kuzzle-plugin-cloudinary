@@ -38,7 +38,7 @@ Method: POST
 ## Arguments 
 
 - `expression` : Description of your response. See [Cloudinary documentation](https://cloudinary.com/documentation/search_api#expressions) for syntax information
-- `next_cursor` :  When a search request has more results to return than `max_results`, the `next_cursor` value is returned as part of the response. You can then specify this value as the `next_cursor` parameter of the following request.
+- `next_cursor` :  When a search request has more results to return than `max_results`, the *next_cursor* value is returned as part of the response. You can then specify this value as the a parameter of the following request to continue your search.
 
 - `max_results` : Maximum number of assets to return. Default value : `50` 
 - `with_field`: Additionnal fields to include in each asset description

@@ -38,7 +38,7 @@ Method: POST
 ## Arguments 
 
 - `public_id`: [public_id](https://cloudinary.com/documentation/upload_images#public_id_the_image_identifier) of the asset to transform
-- `transformation`: JSON that describes your transformation. See [Cloudinary documentation](https://cloudinary.com/documentation/image_transformation_reference) for syntax information
+- `transformation`: JSON object that describes your transformation. See [Cloudinary documentation](https://cloudinary.com/documentation/image_transformation_reference) for syntax information
 
 ---
 

@@ -16,7 +16,7 @@ npm install
 ln -sr ./ ../../plugins/enabled/cloudinary 
 ```
 
-You can now restart Kuzzle and check [http://localhost:7512](http://localhost:7512), you should see the plugin name under the key `serverInfo.kuzzle.plugins.s3`.
+You can now restart Kuzzle and check [http://localhost:7512](http://localhost:7512), you should see the plugin name under the key `serverInfo.kuzzle.plugins.cloudinary`.
 
 # Configuration 
 
@@ -34,7 +34,3 @@ Here is the template of the needed structure :
 ```
 
 You can find more about Vault feature on the [Kuzzle documentation](/core/1/guides/essentials/secrets-vault)
-
-# Testing 
-
-You can test this plugin with Swagger UI. Find more in the [Usage section](/official-plugins/cloudinary/1/essentials/usage)

@@ -7,7 +7,9 @@ title: Usage
 
 # Usage
 
-This plugin will allow user to : 
+This plugin can be used to manage your media library (including tags), search for assets inside it, apply on-the-fly transformations to your assets
+
+Here is the list of all the features :
 - Search for some assets 
 - Transform an asset on the fly
 - Rename an asset 
@@ -17,12 +19,4 @@ This plugin will allow user to :
 - Delete a tag from one or many assets  
 - Delete all the tags from one or many assets  
 
-# Testing 
-
-
-If you want to test this plugin, you can use the [Swagger UI online tool](https://petstore.swagger.io)
-
-1) Run Kuzzle with the plugin installed (See [Installation section](/official-plugins/cloudinary/1/essentials/installation)) **Make sure it is correctly [configured](/official-plugins/cloudinary/1/essentials/installation#configuration) with your Cloudinary credentials**
-2) Go on the [Swagger UI online tool](https://petstore.swagger.io)
-3) Enter the following link `https://raw.githubusercontent.com/kuzzleio/kuzzle-plugin-cloudinary/master/test/swagger-spec.yaml` and click `Explore`
-4) You have now the details of all available requests, and you can try these out
+You can test this plugin with Swagger UI. Find more in the [Testing section](/official-plugins/cloudinary/1/essentials/testing)

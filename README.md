@@ -428,6 +428,7 @@ cd /path-of-your-kuzzle/plugins/available/cloudinary/
 npm install 
 ln -sr ./ ../../plugins/enabled/cloudinary 
 ```
+You can now restart Kuzzle and check [http://localhost:7512](http://localhost:7512), you should see the plugin name under the key `serverInfo.kuzzle.plugins.cloudinary`.
 
 ## Testing 
 
