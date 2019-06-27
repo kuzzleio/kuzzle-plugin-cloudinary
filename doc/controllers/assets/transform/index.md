@@ -17,20 +17,32 @@ Searches for assets corresponding to the specified expression and options
 ```http
 URL: http://kuzzle:7512/_plugin/cloudinary/assets/transform
 Method: POST
+Body:
+```
+```js
+{
+  "public_id" : "sample", 
+  "transformation" : {
+    "width" : 400,
+    "radius" : "100:0:100:100"
+  }
+}
 ```
 
 ### Other protocols 
 
 ```js
 {
-    "controller": "cloudinary/assets",
-    "action": "transform",
+  "controller": "cloudinary/assets",
+  "action": "transform",
 
-	"public_id" : "sample", 
-	"transformation" : {
-		"width" : 400,
-		"radius" : "100:0:100:100"
-	}
+	"body": {
+    "public_id" : "sample", 
+    "transformation" : {
+      "width" : 400,
+      "radius" : "100:0:100:100"
+    }
+  }
 }
 ```
 ---
@@ -46,12 +58,12 @@ Method: POST
 
 ```js
 {
-    "status": 200,
-    "error": null,
-    "controller": "cloudinary/assets",
-    "action": "transform",
-    "requestId": "<unique request identifier>",
-    "result": "<transformed_asset_url>"
+  "status": 200,
+  "error": null,
+  "controller": "cloudinary/assets",
+  "action": "transform",
+  "requestId": "<unique request identifier>",
+  "result": "<transformed_asset_url>"
 }
 ```
 

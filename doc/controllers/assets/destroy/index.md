@@ -19,7 +19,7 @@ URL: http://kuzzle:7512/_plugin/cloudinary/assets/<public_id>
 Method: DELETE
 ```
 
-::: info 
+::: warning
 Be aware that Cloudinary allows special characters in the public_id syntax. You may need to encode the public id with escape character
 :::
 
@@ -27,9 +27,9 @@ Be aware that Cloudinary allows special characters in the public_id syntax. You 
 
 ```js
 {
-    "controller": "cloudinary/assets",
-    "action": "destroy",
-    "public_id": "sample"
+  "controller": "cloudinary/assets",
+  "action": "destroy",
+  "public_id": "sample"
 }
 ```
 ---
@@ -44,14 +44,14 @@ Be aware that Cloudinary allows special characters in the public_id syntax. You 
 
 ```js
 {
-    "status": 200,
-    "error": null,
-    "controller": "cloudinary/assets",
-    "action": "destroy",
-    "requestId": "<unique request identifier>",
-    "result": {
-        "result": "ok"
-    }
+  "status": 200,
+  "error": null,
+  "controller": "cloudinary/assets",
+  "action": "destroy",
+  "requestId": "<unique request identifier>",
+  "result": {
+    "result": "ok"
+  }
 }
 ```
 

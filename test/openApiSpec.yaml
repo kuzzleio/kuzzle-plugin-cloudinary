@@ -19,24 +19,49 @@ tags:
   description: Everything about your Cloudinary assets
 - name: tags
   description: Manage the tags of your Cloudinary assets
+- name: openApi
+  description: Only used to return OpenAPI specification
 paths:
   ## Assets controller
-  /assets/{expression}:
-    get:
+  /assets/search: 
+    post:
       tags:
       - assets
-      summary: Search for assets corresponging to the expression
-      description: Multiple status values can be provided with comma separated strings
+      summary: Search for assets corresponging to an expression
+      description: Be aware that you should either put `expression` or `next_cursor` field. **If both are set, expression will be ignored**
       operationId: searchAssets
-      parameters:
-      - name: expression
-        in: path
-        description: Expression that represents your research 
-        required: true
-        style: simple
-        explode: true
-        schema:
-          type: string
+      requestBody:
+        content: 
+          application/json: 
+            schema: 
+              type: object
+              required: 
+                - expression
+                - next_cursor
+              properties: 
+                expression: 
+                  type: string
+                  example: 
+                    - "cat AND resource-type:image"
+                next-cursor: 
+                  type: string
+                max_results: 
+                  type: integer
+                  default: 50
+                  example: 20
+                with_field:
+                  type: array
+                  items: 
+                    type: string
+                    example: 
+                      "tags"
+                sort_by:
+                  type: array
+                  items: 
+                    type: string
+                    example: 
+                      - "public_id"
+                      - "asc"
       responses:
         200:
           description: successful operation
@@ -83,34 +108,32 @@ paths:
           description: Bad Request error if one attributes is missing
           content: {}
           
-  /assets: 
+  /assets/{public_id}: 
     put: 
       tags:
       - assets
       summary: Rename an asset
       operationId: renameAsset
-      requestBody:
-        required: true
-        content: 
-          application/json: 
-            schema:
-                type: object
-                properties: 
-                  from_public_id:  
-                    type: string
-                    example: "old_name"
-                  to_public_id: 
-                    type: string
-                    example: "new_name"
-
+      parameters: 
+        - in: path
+          name: public_id
+          required: true
+          schema: 
+            type: string
+          description: The old public_id of the asset
+          example: "old_name"
+        - in : query 
+          name: new_public_id
+          required: true
+          schema: 
+            type: string
+          description: The new public_id of the asset
+          example: "new_name"
+      
       responses:
         200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: string
-                example: "sample"
+          description: Returns all information about renamed asset
+          content: {}
         400:
           description: Bad Request error if one attributes is missing
           content: {}
@@ -122,24 +145,18 @@ paths:
       - assets
       summary: Delete an asset
       operationId: destroyAsset
-      requestBody:
-        required: true
-        content: 
-          application/json: 
-            schema:
-                type: object
-                properties: 
-                  public_id:  
-                    type: string
-                    example: "sample"
+      parameters: 
+        - in: path
+          name: public_id
+          required: true
+          schema: 
+            type: string
+          description: The public_id of the asset
+          example: "old_name"
       responses:
         200:
           description: OK
-          content:
-            application/json:
-              schema:
-                type: string
-                example: "sample"
+          content: {}
         400:
           description: Bad Request error if one attributes is missing
           content: {}
@@ -156,12 +173,24 @@ paths:
       description: You can provide several assets in an array of string in the Request Body 
       operationId: addTags
       requestBody:
-        description: public_id can be a String or an Array of String
+        description: public_id can be a `String` or an `Array of String`
         required: true
         content: 
           application/json: 
             schema:
-                $ref: '#/components/schemas/TagRequestBody'
+              type: object
+              required: 
+                - public_id
+                - tag
+              properties: 
+                public_id: 
+                  oneOf: 
+                    - type: array
+                      items: 
+                        type: string
+                    - type: string 
+                tag: 
+                  type: string
             example: 
               public_id: "sample"
               tag: "a tag"
@@ -172,39 +201,50 @@ paths:
           content:
             application/json:
               schema:
-                type: string
-                example: "sample"
+                type: array 
+                items:
+                  type: string
+                  example: "sample"
         206:
           description: If you entered several public_id, a 206 error might be thrown if one or several assets haven't been updated.
           content: 
             application/json:
               schema: 
                 $ref : '#/components/schemas/PartialError'
+  /tags/{tag}:
     put: 
       tags:
       - tags
       summary: Replace all the tag from one or several assets with another tag
-      description: You can provide several assets in an array of string in the Request Body 
+      description: You can provide several assets by entering `public_id` parameters several times 
       operationId: replaceTags
-      requestBody:
-        description: public_id can be a String or an Array of String
-        required: true
-        content: 
-          application/json: 
-            schema:
-                $ref: '#/components/schemas/TagRequestBody'
-            example: 
-              public_id: "sample"
-              tag: "a tag to rule them all"
-            
+      parameters:
+        - in: path
+          name: tag
+          required: true
+          schema: 
+            type: string
+          description: The tag that will replace all present tag
+          example: "a_tag"
+        - in: query
+          name: public_id
+          style: form
+          explode: true
+          required: true
+          schema: 
+            type: string 
+          description: The public_id of assets to be edited (This parameter can be input several times)
+          example: "sample"
       responses:
         200:
           description: OK (returns all updated public_id)
           content:
             application/json:
               schema:
-                type: string
-                example: "sample"
+                type: array
+                items: 
+                  type: string
+                  example: "sample"
         206:
           description: If you entered several public_id, a 206 error might be thrown if one or several assets haven't been updated.
           content: 
@@ -215,19 +255,25 @@ paths:
       tags:
       - tags
       summary: Delete the tag from one or several assets
-      description: You can provide several assets in an array of string in the Request Body 
+      description: You can provide several assets by entering `public_id` parameters several times 
       operationId: removeTag
-      requestBody:
-        description: public_id can be a String or an Array of String
-        required: true
-        content: 
-          application/json: 
-            schema:
-                $ref: '#/components/schemas/TagRequestBody'
-            example: 
-              public_id: "sample"
-              tag: "the tag is a lie"
-            
+      parameters:
+        - in: path
+          name: tag
+          required: true
+          schema: 
+            type: string
+          description: The tag that will be deleted from the asset(s)
+          example: "the tag is a lie"
+        - in: query
+          name: public_id
+          style: form
+          explode: true
+          required: true
+          schema: 
+            type: string 
+          description: The public_id of assets to be edited (This parameter can be input several times)
+          example: "sample"
       responses:
         200:
           description: OK (returns all updated public_id)
@@ -248,27 +294,18 @@ paths:
       tags:
       - tags
       summary: Delete all the tags from one or several assets
-      description: You can provide several assets in an array of string in the Request Body 
+      description: You can provide several assets by entering `public_id` parameters several times 
       operationId: removeAllTags
-      requestBody:
-        description: public_id can be a String or an Array of String
-        required: true
-        content: 
-          application/json: 
-            schema:
-              type: object
-              required: 
-                - public_id
-                - tag
-              properties: 
-                public_id: 
-                  oneOf: 
-                    - type: array
-                      items: 
-                        type: string
-                    - type: string 
-            example: 
-              public_id: "sample"
+      parameters:
+        - in: query
+          name: public_id
+          style: form
+          explode: true
+          required: true
+          schema: 
+            type: string 
+          description: The public_id of assets to be edited (This parameter can be input several times)
+          example: "sample"
       responses:
         200:
           description: OK (returns all updated public_id)
@@ -282,23 +319,19 @@ paths:
           content: 
             application/json:
               schema: 
-                $ref : '#/components/schemas/PartialError'               
+                $ref : '#/components/schemas/PartialError'      
+  /openApi:
+    get:
+      tags:
+      - openApi
+      summary: Returns the Open API Specification
+      operationId: getSpecification
+      responses:
+        200:
+          description: OpenAPI Specification as json
+          content: {}
 components:
   schemas:
-    TagRequestBody: 
-      type: object
-      required: 
-        - public_id
-        - tag
-      properties: 
-        public_id: 
-          oneOf: 
-            - type: array
-              items: 
-                type: string
-            - type: string 
-        tag: 
-          type: string
     PartialError: 
       type: array
       items: 

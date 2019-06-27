@@ -15,11 +15,11 @@ Renames the specified asset
 ### HTTP 
 
 ```http
-URL: http://kuzzle:7512/_plugin/cloudinary/assets/<public_id>
+URL: http://kuzzle:7512/_plugin/cloudinary/assets/<public_id>?new_public_id=<new_name>
 Method: PUT
 ```
 
-::: info 
+::: warning
 Be aware that Cloudinary allows special characters in the public_id syntax. You may need to encode the public id with escape character 
 :::
 
@@ -27,11 +27,11 @@ Be aware that Cloudinary allows special characters in the public_id syntax. You 
 
 ```js
 {
-    "controller": "cloudinary/assets",
-    "action": "rename",
+  "controller": "cloudinary/assets",
+  "action": "rename",
 
-    "public_id": "old_name",
-    "new_public_id": "new_name"
+  "public_id": "old_name",
+  "new_public_id": "new_name"
 }
 ```
 ---
@@ -46,27 +46,27 @@ Be aware that Cloudinary allows special characters in the public_id syntax. You 
 
 ```js
 {
-    "status": 200,
-    "error": null,
-    "controller": "cloudinary/assets",
-    "action": "destroy",
-    "requestId": "<unique request identifier>",
-    "result": {
-        "public_id": "<new_public_id>",
-        "width": "<width>",
-        "height": "<height>",
-        "format": "<format>",
-        "resource_type": "<ressource_type>",
-        "created_at": "<creation_date>",
-        "tags": [
-            "<tag>"
-        ],
-        "bytes": "<size>",
-        "type": "<type>",
-        "placeholder": "<placeholder>",
-        "url": "<url>",
-        "secure_url": "<secure_url>"
-    }
+  "status": 200,
+  "error": null,
+  "controller": "cloudinary/assets",
+  "action": "destroy",
+  "requestId": "<unique request identifier>",
+  "result": {
+    "public_id": "<new_public_id>",
+    "width": "<width>",
+    "height": "<height>",
+    "format": "<format>",
+    "resource_type": "<ressource_type>",
+    "created_at": "<creation_date>",
+    "tags": [
+      "<tag>"
+    ],
+    "bytes": "<size>",
+    "type": "<type>",
+    "placeholder": "<placeholder>",
+    "url": "<url>",
+    "secure_url": "<secure_url>"
+  }
 }
 ```
 

@@ -15,7 +15,13 @@ Removes the specified tag from the specified asset(s)
 ### HTTP 
 
 ```http
-URL: http://kuzzle:7512/_plugin/cloudinary/tags/<tag>
+URL: http://kuzzle:7512/_plugin/cloudinary/tags/<tag>?public_id=<name>
+Method: DELETE
+```
+
+You can put several assets as parameter. Here is an example :
+```http
+URL: http://kuzzle:7512/_plugin/cloudinary/tags/a_Tag?public_id=sample&public_id=sample2
 Method: DELETE
 ```
 
@@ -24,22 +30,22 @@ Method: DELETE
 If you want to edit only one asset you can use this query : 
 ```js
 {
-    "controller": "cloudinary/tags",
-    "action": "removeTag",
+  "controller": "cloudinary/tags",
+  "action": "removeTag",
 
 	"public_id" : "sample",
-    "tag" : "a_tag"
+  "tag" : "a_tag"
 }
 ```
 
 If you want to edit several assets you can use this query : 
 ```js
 {
-    "controller": "cloudinary/tags",
-    "action": "removeTag",
+  "controller": "cloudinary/tags",
+  "action": "removeTag",
 
 	"public_id" : [ "sample", "sample2" ],
-    "tag": "a_tag"
+  "tag": "a_tag"
 }
 ```
 ---
@@ -55,17 +61,17 @@ If you want to edit several assets you can use this query :
 
 ```js
 {
-    "status": 200,
-    "error": null,
-    "controller": "cloudinary/tags",
-    "action": "removeTag",
-    "requestId": "<unique request identifier>",
-    "result": {
-        "public_ids": [
-            "sample",
-            "sample2"
-        ] 
-    }
+  "status": 200,
+  "error": null,
+  "controller": "cloudinary/tags",
+  "action": "removeTag",
+  "requestId": "<unique request identifier>",
+  "result": {
+    "public_ids": [
+      "sample",
+      "sample2"
+    ] 
+  }
 }
 ```
 

@@ -4,7 +4,8 @@ const sinon = require('sinon'),
   CloudinaryMock = require('./mocks/cloudinary.mock'),
   should = require('should'),
   KuzzleErrors = require('kuzzle-common-objects').errors,
-  mockrequire = require('mock-require');
+  mockrequire = require('mock-require'),
+  openApiSpecification = require('./openApiSpec.json');
 
 describe('CloudinaryPlugin', () => {
   let
@@ -338,6 +339,25 @@ describe('CloudinaryPlugin', () => {
 
           should(cloudinaryMock.v2.uploader.remove_all_tags).be.calledWith(['id1', 'id2']);
           should(cloudinaryPlugin._handleError).be.called();
+        });
+    });
+  });
+
+  describe('#openApiSpecification', () => {
+    it('should return open api object', () => {
+      request.init({
+        response: { 
+          raw: false, 
+          headers: {
+            'Content-Type': null
+          }
+        }
+      });
+
+      return cloudinaryPlugin.getSpecification(request)
+        .then((response) => {
+
+          should(response).be.eql(JSON.stringify(openApiSpecification, null, 2));
         });
     });
   });
