@@ -7,7 +7,18 @@ class CloudinaryMock {
       config: sinon.spy(),
       search: {
         expression: sinon.stub().returns({
-          execute: sinon.stub().returns({ resources: []})
+          execute: sinon.stub().returns({resources: []}),
+          max_results: sinon.stub().returns({
+            sort_by: sinon.stub().returns({
+              with_field: sinon.stub().returns({
+                execute: sinon.stub().returns({ resources: [] })
+              })
+            })
+          })
+        }),
+
+        next_cursor: sinon.stub().returns({
+          execute: sinon.stub().returns({ resources: [] })
         })
       },
       url: sinon.stub().returns({result: 'a link'}),

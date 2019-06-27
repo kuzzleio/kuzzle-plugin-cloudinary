@@ -60,6 +60,19 @@ describe('CloudinaryPlugin', () => {
 
       should(() => cloudinaryPlugin._getArg(request.input.args, 'anArg')).throw();
     });
+    
+    it('should return an array if asked', () => {
+      request.init({
+        input: {
+          args: {
+            anArg: 'notArray'
+          }
+        }
+      });
+
+      const res = cloudinaryPlugin._getArg(request.input.args, 'anArg', true);
+      should(res).be.eql(['notArray']);
+    });
   });
 
   describe('#errorHandlingHelper', () => {
@@ -73,27 +86,54 @@ describe('CloudinaryPlugin', () => {
       request.init({
         input: {
           body: {
-            expression: 'mySearch'
+            expression: 'cat AND resource-type:image',
+            max_results: 20,
+            with_field: [
+              'tags'
+            ],
+            sort_by: [
+              [
+                'public_id',
+                'asc'
+              ]
+            ]
           }
         }
       });
     });
 
-    it('should fetch the request for an expression', () => {
-      sinon.spy(cloudinaryPlugin, '_getArg');
+    it('should fetch the request only with next_cursor', () => {
+      request.input.body.next_cursor = 'longcursor1234567890';
 
       return cloudinaryPlugin.search(request)
         .then(() => {
 
-          should(cloudinaryPlugin._getArg).be.calledWith(request.input.body, 'expression');
+          should(cloudinaryMock.v2.search.next_cursor).be.calledWith('longcursor1234567890');
         });
     });
 
-    it('should call cloudinary function', () => {
-      cloudinaryPlugin.search(request)
+    it('should ignore expression when expression and next_cursor are set', () => {
+      request.input.body.next_cursor = 'longcursor1234567890';
+
+      return cloudinaryPlugin.search(request)
         .then(() => {
 
-          return should(cloudinaryMock.v2.search.expression).be.calledWith('mySearch');
+          should(cloudinaryMock.v2.search.expression).not.be.called();
+          should(cloudinaryMock.v2.search.next_cursor).be.calledWith('longcursor1234567890');
+        });
+    });
+
+    it('handle search request body', () => {
+      cloudinaryMock.v2.search.next_cursor.reset();
+
+      return cloudinaryPlugin.search(request)
+        .then(() => {
+
+          should(cloudinaryMock.v2.search.expression).be.calledWith('cat AND resource-type:image');
+          should(cloudinaryMock.v2.search.expression().max_results).be.calledWith(20);
+          should(cloudinaryMock.v2.search.expression().max_results().sort_by).be.calledWith('public_id', 'asc');
+          should(cloudinaryMock.v2.search.expression().max_results().sort_by().with_field).be.calledWith('tags');
+          should(cloudinaryMock.v2.search.next_cursor).not.be.called();
         });
     });
   });

@@ -41,9 +41,8 @@ paths:
               properties: 
                 expression: 
                   type: string
-                  example: 
-                    - "cat AND resource-type:image"
-                next-cursor: 
+                  example: "cat AND resource-type:image"
+                next_cursor: 
                   type: string
                 max_results: 
                   type: integer
@@ -59,9 +58,7 @@ paths:
                   type: array
                   items: 
                     type: string
-                    example: 
-                      - "public_id"
-                      - "asc"
+                    example: [ "public_id","asc" ]
       responses:
         200:
           description: successful operation

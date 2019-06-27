@@ -56,11 +56,9 @@
                 "properties": {
                   "expression": {
                     "type": "string",
-                    "example": [
-                      "cat AND resource-type:image"
-                    ]
+                    "example": "cat AND resource-type:image"
                   },
-                  "next-cursor": {
+                  "next_cursor": {
                     "type": "string"
                   },
                   "max_results": {
@@ -78,7 +76,10 @@
                   "sort_by": {
                     "type": "array",
                     "items": {
-                      "type": "string",
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
                       "example": [
                         "public_id",
                         "asc"
