@@ -7,7 +7,7 @@ title: getSpecification
 # getSpecification
 
 Returns an [OpenApi Specification](https://swagger.io/specification/) object to use in the [SwaggerUI app](https://swagger.io/tools/swagger-ui/). 
-Used to test the plugin. See [Testing section](/official-plugins/cloudinary/1/essentials/testing)
+(Used to test the plugin - See [Testing section](/official-plugins/cloudinary/1/essentials/testing))
 
 --- 
 
@@ -40,11 +40,11 @@ None
 
 ```js
 {
- "openapi": "3.0.1",
-    "info": {
-      "title": "Kuzzle plugin : Cloudinary",
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Kuzzle plugin : Cloudinary",
     ...
-    }
+  },
   ...
 }
 ```

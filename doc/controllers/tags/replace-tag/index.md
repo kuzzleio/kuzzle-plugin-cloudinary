@@ -33,7 +33,7 @@ If you want to edit only one asset you can use this query :
   "controller": "cloudinary/tags",
   "action": "replaceTag",
 
-	"public_id" : "sample",
+  "public_id" : "sample",
   "tag" : "a_tag"
 }
 ```
@@ -44,7 +44,7 @@ If you want to edit several assets you can use this query :
   "controller": "cloudinary/tags",
   "action": "replaceTag",
 
-	"public_id" : [ "sample", "sample2" ],
+  "public_id" : [ "sample", "sample2" ],
   "tag": "a_tag"
 }
 ```

@@ -34,7 +34,7 @@ If you want to add a tag to only one asset you can use this query :
   "controller": "cloudinary/tags",
   "action": "addTag",
 
-	"body": { 
+  "body": {
     "public_id" : "sample", 
     "tag" : "<tag_to_add>"
   }
@@ -47,8 +47,8 @@ If you want to add a tag to several assets you can use this query :
   "controller": "cloudinary/tags",
   "action": "addTag",
 
-	"public_id" : [ "sample", "sample2" ], 
-	"tag" : "<tag_to_add>"
+  "public_id" : [ "sample", "sample2" ],
+  "tag" : "<tag_to_add>"
 }
 ```
 ---
