@@ -6,71 +6,71 @@ env:
 
 jobs:
   include:
-    # - stage: Tests
-    #   name: Linting
-    #   os: linux
-    #   sudo: required
-    #   language: node_js
-    #   node_js: 8
-    #   cache: npm
-    #   install:
-    #     - npm install --silent
-    #   script:
-    #     - npm run lint
+    - stage: Tests
+      name: Linting
+      os: linux
+      sudo: required
+      language: node_js
+      node_js: 8
+      cache: npm
+      install:
+        - npm install --silent
+      script:
+        - npm run lint
 
-    # - stage: Tests
-    #   name: Unit tests - Node.js 6
-    #   os: linux
-    #   sudo: required
-    #   language: node_js
-    #   node_js:
-    #     - 6
-    #   cache: npm
-    #   install:
-    #     - npm install --silent
-    #   script:
-    #     - npm run unit-testing
+    - stage: Tests
+      name: Unit tests - Node.js 6
+      os: linux
+      sudo: required
+      language: node_js
+      node_js:
+        - 6
+      cache: npm
+      install:
+        - npm install --silent
+      script:
+        - npm run unit-testing
 
-    # - stage: Tests
-    #   name: Unit tests - Node.js 8
-    #   os: linux
-    #   sudo: required
-    #   language: node_js
-    #   node_js:
-    #     - 8
-    #   cache: npm
-    #   install:
-    #     - npm install --silent
-    #   script:
-    #     - npm run unit-testing
-    #   after_script:
-    #     - npm run codecov
+    - stage: Tests
+      name: Unit tests - Node.js 8
+      os: linux
+      sudo: required
+      language: node_js
+      node_js:
+        - 8
+      cache: npm
+      install:
+        - npm install --silent
+      script:
+        - npm run unit-testing
+      after_script:
+        - npm run codecov
 
-    # - stage: Tests
-    #   name: Unit tests - Node.js 10
-    #   os: linux
-    #   sudo: required
-    #   language: node_js
-    #   node_js:
-    #     - 10
-    #   cache: npm
-    #   install:
-    #     - npm install --silent
-    #   script:
-    #     - npm run unit-testing
-    #   after_script:
-    #     - npm run codecov
+    - stage: Tests
+      name: Unit tests - Node.js 10
+      os: linux
+      sudo: required
+      language: node_js
+      node_js:
+        - 10
+      cache: npm
+      install:
+        - npm install --silent
+      script:
+        - npm run unit-testing
+      after_script:
+        - npm run codecov
 
-    # - stage: Tests
-    #   name: Dead link check
-    #   if: type = pull_request OR type = push AND branch =~ /^master|[0-9]+-(dev|stable)$/ OR type = cron
+    - stage: Tests
+      name: Dead link check
+      if: type = pull_request OR type = push AND branch =~ /^master|[0-9]+-(dev|stable)$/ OR type = cron
 
-    #   before_script:
-    #     - npm run doc-prepare
-    #     - npm run --prefix doc/framework clone-repos
-    #   script:
-    #     - gem install typhoeus
-    #     - HYDRA_MAX_CONCURRENCY=20 npm run --prefix doc/framework dead-links
+      before_script:
+        - npm run doc-prepare
+        - npm run --prefix doc/framework clone-repos
+      script:
+        - gem install typhoeus
+        - HYDRA_MAX_CONCURRENCY=20 npm run --prefix doc/framework dead-links
 
 
 
@@ -109,37 +109,37 @@ jobs:
       after_deploy:
         - npm run doc-cloudfront
 
-    # - stage: Deployment Doc Prod
-    #   name: Deploy docs.kuzzle.io
-    #   if: branch = master
-    #   language: node_js
-    #   node_js: 10
-    #   env:
-    #     - NODE_ENV=production
-        # - S3_BUCKET=docs.kuzzle.io
-        # - CLOUDFRONT_DISTRIBUTION_ID=E3D6RP0POLCJMM
-        # - AWS_DEFAULT_REGION=us-west-2
+    - stage: Deployment Doc Prod
+      name: Deploy docs.kuzzle.io
+      if: branch = master
+      language: node_js
+      node_js: 10
+      env:
+        - NODE_ENV=production
+        - S3_BUCKET=docs.kuzzle.io
+        - CLOUDFRONT_DISTRIBUTION_ID=E3D6RP0POLCJMM
+        - AWS_DEFAULT_REGION=us-west-2
 
-    #   addons:
-    #     apt:
-    #       packages:
-    #         - python
-    #         - python-pip
+      addons:
+        apt:
+          packages:
+            - python
+            - python-pip
 
-    #   install:
-    #     - pip install awscli --upgrade --user
+      install:
+        - pip install awscli --upgrade --user
 
-    #   script:
-    #     - npm run doc-prepare
-    #     - npm run doc-build
+      script:
+        - npm run doc-prepare
+        - npm run doc-build
 
-    #   deploy:
-    #     provider: script
-    #     script:
-    #       - npm run doc-upload
-    #     skip_cleanup: true
-    #     on:
-    #       branch: master
+      deploy:
+        provider: script
+        script:
+          - npm run doc-upload
+        skip_cleanup: true
+        on:
+          branch: master
 
-    #   after_deploy:
-    #     - npm run doc-cloudfront
+      after_deploy:
+        - npm run doc-cloudfront
