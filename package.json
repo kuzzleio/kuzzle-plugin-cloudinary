@@ -10,7 +10,13 @@
     "lint": "./node_modules/.bin/eslint --max-warnings=0 ./lib ./test",
     "unit-testing": "nyc --reporter=text-summary --reporter=lcov mocha",
     "build": "node bin/build.js",
-    "codecov": "codecov"
+    "codecov": "codecov",
+    "doc-prepare": "cd doc && bash doc.sh prepare",
+    "doc-dev": "cd doc && bash doc.sh dev",
+    "doc-build": "cd doc && bash doc.sh build",
+    "doc-upload": "cd doc && bash doc.sh upload",
+    "doc-cloudfront": "cd doc && bash doc.sh cloudfront",
+    "doc-deploy": "npm run doc-upload && npm run doc-cloudfront"
   },
   "repository": {
     "type": "git",
