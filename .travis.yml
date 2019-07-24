@@ -1,3 +1,9 @@
+env:
+  global:
+    - AWS_ACCESS_KEY_ID=AKIAIYAXFUAHXOWP2MJA
+    # AWS_SECRET_ACCESS_KEY
+    - secure: "OQFVDr7a9KsvmBgRe5t/nx3cVQ76k5cHBPBtX130XkxqhNO3k41QUtits/LqrIDZPgx5hQGwtjrQmGmz9YD50cKvY623ZNwsdm79wPxMaK2ZXDWzW3OYd4SICH1FVzMYsAmVUpKqunAZ9RwiKK9jY0Wn36bdXmIggy6qVAHcz7T1Bu2K3v+S4hiymF6osTXZtqFUSOt0Qsl+iFsFO97bq/KZAmREImdaV3hX+z/ZPJTGck0Om8vtyI2mjjy1XCtJBgm/4/+xciDAgu/c7HdvBKkh5HmJ3kBYForL37inhQgH/rbbFzo1OtKtF76DNpJ83aB07GOB3hTVsZiEo4arRTwntO1zjkhZqTIgf/Q0oeb1s0iWs/vK30FMpoH7TMGEeE1d70NfUe9W2iaF2f1n4FoGI7S8jRq+UfX6o72fFbOepETY7f6fHHDSL6iS5pzakPWfn/3QanYT2Q7RxTvRTHTesEcC4d9ED1iFYLvFXLXGeVpC989YobxMfDtnXbV3RJeKB2MZFwlImqViyITTLAlZCOvuKXGhrjF1FXbnBcuUY+w+udyCJk0RW+/Guha3f30bBJ9yFg1hsRe/q9qOtamV6RK3MPkZWmhep5UQlQPVPeipFHHwpTDYtKeQDUI089FLmD+XaW6UwkLdzWRhL8COOFVrKrJlGwSPnWpqw1Q="
+
 jobs:
   include:
     # - stage: Tests
@@ -78,9 +84,7 @@ jobs:
         - S3_BUCKET=docs-next.kuzzle.io
         - CLOUDFRONT_DISTRIBUTION_ID=E2ZCCEK9GRB49U
         - AWS_DEFAULT_REGION=us-west-2
-        - AWS_ACCESS_KEY_ID=AKIAIYAXFUAHXOWP2MJA
-        # AWS_SECRET_ACCESS_KEY
-        - secure: "OQFVDr7a9KsvmBgRe5t/nx3cVQ76k5cHBPBtX130XkxqhNO3k41QUtits/LqrIDZPgx5hQGwtjrQmGmz9YD50cKvY623ZNwsdm79wPxMaK2ZXDWzW3OYd4SICH1FVzMYsAmVUpKqunAZ9RwiKK9jY0Wn36bdXmIggy6qVAHcz7T1Bu2K3v+S4hiymF6osTXZtqFUSOt0Qsl+iFsFO97bq/KZAmREImdaV3hX+z/ZPJTGck0Om8vtyI2mjjy1XCtJBgm/4/+xciDAgu/c7HdvBKkh5HmJ3kBYForL37inhQgH/rbbFzo1OtKtF76DNpJ83aB07GOB3hTVsZiEo4arRTwntO1zjkhZqTIgf/Q0oeb1s0iWs/vK30FMpoH7TMGEeE1d70NfUe9W2iaF2f1n4FoGI7S8jRq+UfX6o72fFbOepETY7f6fHHDSL6iS5pzakPWfn/3QanYT2Q7RxTvRTHTesEcC4d9ED1iFYLvFXLXGeVpC989YobxMfDtnXbV3RJeKB2MZFwlImqViyITTLAlZCOvuKXGhrjF1FXbnBcuUY+w+udyCJk0RW+/Guha3f30bBJ9yFg1hsRe/q9qOtamV6RK3MPkZWmhep5UQlQPVPeipFHHwpTDYtKeQDUI089FLmD+XaW6UwkLdzWRhL8COOFVrKrJlGwSPnWpqw1Q="
+
       addons:
         apt:
           packages:
@@ -88,11 +92,9 @@ jobs:
             - python-pip
 
       install:
-        - bash test-env.sh
         - pip install awscli --upgrade --user
 
       script:
-        - if [ -z $AWS_SECRET_ACCESS_KEY ]; then exit 1; fi
         - npm run doc-prepare
         - npm run doc-build
 
