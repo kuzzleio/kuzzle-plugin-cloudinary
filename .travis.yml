@@ -1,7 +1,13 @@
+env:
+  global:
+    - AWS_ACCESS_KEY_ID=AKIAIYAXFUAHXOWP2MJA
+    # AWS_SECRET_ACCESS_KEY
+    - secure: "mMhQXtqD3s0i7DNkdTslvI/Qt5nqxht8G2mPYQEJf6sgE85gj77FdQqE+GDg39zp2sM6Ts1SJjolAHcv6IVD5zBUilm+4ffXA9Bm+SGBqk696n2R0eQ3IcZ9dVAFTEos3FqefOXzoqoz92NAXC+StjLG8po+xMPcNmrOKCGzkVRjGMDy2kuRLYOASVTGaikK+0Uwq2J04SuEMeVOu7ftLln0fmwdP0PL7E61uOkp/5M8/K/OLDefpA7ydCtS1HToIWLzfGN7lJbd7AUAFg0AetRTlMLR5VACwUJee4eO14uLfcHg6JHhCb158ZZvpiHgfoXS9uuvk+eEDRKLJUkPYd9GyMAnGQP3n/aFWIaMb1eOBo1i8ROYgI4wqdLQQHY9xh2+Y6k474ZA/12t4OXh6wtja2jt4/fJrxwCCtAm/OZEk1Fv8KgJRNIYBEli8sgRWEKDCnZ1rYlClOkhsaH2Gz9gDS6QoFmj8pLzL+RDW8QNvmNHjfoPbcSwSxH6t4TSYpudiDvUm8kO+WMJVHTJ470SgBb8dX78MV6urGqPKmqPCHOJIRukd4ZmLwWkrCCF/l7sH93MFus8YMllSBTCbkwSOJGF4i+QnC2kTaBC8ThYjdlf5M0fpn74HAEzNN89qVGCfp3xbylHQh8SG78V/Aq7+vZAVi8JhSgfc8vIxXM="
+
 jobs:
   include:
-    - stage: "Tests"
-      name: "Linting"
+    - stage: Tests
+      name: Linting
       os: linux
       sudo: required
       language: node_js
@@ -12,12 +18,12 @@ jobs:
       script:
         - npm run lint
 
-    - stage: "Tests"
-      name: "Unit tests - Node.js 6"
+    - stage: Tests
+      name: Unit tests - Node.js 6
       os: linux
       sudo: required
       language: node_js
-      node_js: 
+      node_js:
         - 6
       cache: npm
       install:
@@ -25,12 +31,12 @@ jobs:
       script:
         - npm run unit-testing
 
-    - stage: "Tests"
-      name: "Unit tests - Node.js 8"
+    - stage: Tests
+      name: Unit tests - Node.js 8
       os: linux
       sudo: required
       language: node_js
-      node_js: 
+      node_js:
         - 8
       cache: npm
       install:
@@ -40,12 +46,12 @@ jobs:
       after_script:
         - npm run codecov
 
-    - stage: "Tests"
-      name: "Unit tests - Node.js 10"
+    - stage: Tests
+      name: Unit tests - Node.js 10
       os: linux
       sudo: required
       language: node_js
-      node_js: 
+      node_js:
         - 10
       cache: npm
       install:
@@ -54,3 +60,86 @@ jobs:
         - npm run unit-testing
       after_script:
         - npm run codecov
+
+    - stage: Tests
+      name: Dead link check
+      if: type = pull_request OR type = push AND branch =~ /^master|[0-9]+-(dev|stable)$/ OR type = cron
+
+      before_script:
+        - npm run doc-prepare
+        - npm run --prefix doc/framework clone-repos
+      script:
+        - gem install typhoeus
+        - HYDRA_MAX_CONCURRENCY=20 npm run --prefix doc/framework dead-links
+
+
+
+    - stage: Deployment Doc Dev
+      name: Deploy next-docs.kuzzle.io
+      if: branch = 1-dev
+      language: node_js
+      node_js: 10
+      env:
+        - NODE_ENV=production
+        - S3_BUCKET=docs-next.kuzzle.io
+        - CLOUDFRONT_DISTRIBUTION_ID=E2ZCCEK9GRB49U
+        - AWS_DEFAULT_REGION=us-west-2
+
+      addons:
+        apt:
+          packages:
+            - python
+            - python-pip
+
+      install:
+        - pip install awscli --upgrade --user
+
+      script:
+        - npm run doc-prepare
+        - npm run doc-build
+
+      deploy:
+        provider: script
+        script:
+          - npm run doc-upload
+        skip_cleanup: true
+        on:
+          branch: 1-dev
+
+      after_deploy:
+        - npm run doc-cloudfront
+
+    # - stage: Deployment Doc Prod
+    #   name: Deploy docs.kuzzle.io
+    #   if: branch = master
+    #   language: node_js
+    #   node_js: 10
+    #   env:
+    #     - NODE_ENV=production
+        # - S3_BUCKET=docs.kuzzle.io
+        # - CLOUDFRONT_DISTRIBUTION_ID=E3D6RP0POLCJMM
+        # - AWS_DEFAULT_REGION=us-west-2
+
+    #   addons:
+    #     apt:
+    #       packages:
+    #         - python
+    #         - python-pip
+
+    #   install:
+    #     - pip install awscli --upgrade --user
+
+    #   script:
+    #     - npm run doc-prepare
+    #     - npm run doc-build
+
+    #   deploy:
+    #     provider: script
+    #     script:
+    #       - npm run doc-upload
+    #     skip_cleanup: true
+    #     on:
+    #       branch: master
+
+    #   after_deploy:
+    #     - npm run doc-cloudfront
