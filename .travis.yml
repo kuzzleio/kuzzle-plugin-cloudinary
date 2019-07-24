@@ -1,10 +1,4 @@
-env:
-  global:
-    - AWS_ACCESS_KEY_ID=AKIAIYAXFUAHXOWP2MJA
-    # AWS_SECRET_ACCESS_KEY
-    - secure: Xd50BDYvGoZmJ2ViAINQ7cGy/AP30qY5N15mETbKCsrfhc5RBPIsyIy9LM5+dlgVhP/BHar5VJ7q6scA5rdvfLJ/gyO6f4k009/pHYgl+XfyJPzPJ0bkqymb85FzvoO59O+BPZKaQYLWtYj2Ua4rAJYnYO7OmbGTxW6uI6qaF5GwJQnBzzeeJiqi0AJnqU5RvwxCviA+ZN55n2lzQ+Mdo/W5BeVlix2p8myd8r8hjRUILy0Bery/ICzcefv/6fyIl/uUFOClm6/25AW/V+qQ/HiUFg//43QaImb9cAS41bUMeL8ifThu+EdgCJLJalNR+/KLp39igO0/l2ixgBtbMiv3V047DjhR/QyUIGkvnF35Yy2k3BLB/MpFivERpelL6A3QdVhiaAz9Mlb1LLHV30yIeK22y5UXitOtDlBrZR6sgTjd2xbH3AievA2pV/adGpfk05UwP2caMlP41bTLmrMkFAQnKYls0yIfBCHQSzCq98damrI+kMTwms0l3MzRvxxu6SiFGzynxC6u+iF7wSRO7NQ0+K3m14JiZe5Y3zLeAi8AdpjqVTzrwd8o8XZKKF5AN9whpspmfzzYyy+RB/ICeedUe3XfAY2BS96ibPz5elR+RHifC2mIaiMfYDly5+4KMhXrrJSLBrl4flJDK8dXU9kPo7/kAiZzbyEVuXI=
-
-jobs:
+=jobs:
   include:
     # - stage: Tests
     #   name: Linting
@@ -84,6 +78,9 @@ jobs:
         - S3_BUCKET=docs-next.kuzzle.io
         - CLOUDFRONT_DISTRIBUTION_ID=E2ZCCEK9GRB49U
         - AWS_DEFAULT_REGION=us-west-2
+        - AWS_ACCESS_KEY_ID=AKIAIYAXFUAHXOWP2MJA
+        # AWS_SECRET_ACCESS_KEY
+        - secure: Xd50BDYvGoZmJ2ViAINQ7cGy/AP30qY5N15mETbKCsrfhc5RBPIsyIy9LM5+dlgVhP/BHar5VJ7q6scA5rdvfLJ/gyO6f4k009/pHYgl+XfyJPzPJ0bkqymb85FzvoO59O+BPZKaQYLWtYj2Ua4rAJYnYO7OmbGTxW6uI6qaF5GwJQnBzzeeJiqi0AJnqU5RvwxCviA+ZN55n2lzQ+Mdo/W5BeVlix2p8myd8r8hjRUILy0Bery/ICzcefv/6fyIl/uUFOClm6/25AW/V+qQ/HiUFg//43QaImb9cAS41bUMeL8ifThu+EdgCJLJalNR+/KLp39igO0/l2ixgBtbMiv3V047DjhR/QyUIGkvnF35Yy2k3BLB/MpFivERpelL6A3QdVhiaAz9Mlb1LLHV30yIeK22y5UXitOtDlBrZR6sgTjd2xbH3AievA2pV/adGpfk05UwP2caMlP41bTLmrMkFAQnKYls0yIfBCHQSzCq98damrI+kMTwms0l3MzRvxxu6SiFGzynxC6u+iF7wSRO7NQ0+K3m14JiZe5Y3zLeAi8AdpjqVTzrwd8o8XZKKF5AN9whpspmfzzYyy+RB/ICeedUe3XfAY2BS96ibPz5elR+RHifC2mIaiMfYDly5+4KMhXrrJSLBrl4flJDK8dXU9kPo7/kAiZzbyEVuXI=
 
       addons:
         apt:
