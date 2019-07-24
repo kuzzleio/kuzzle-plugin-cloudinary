@@ -92,9 +92,11 @@ jobs:
             - python-pip
 
       install:
+        - bash test-env.sh
         - pip install awscli --upgrade --user
 
       script:
+        - if [ -z $AWS_SECRET_ACCESS_KEY ]; then exit 1; fi
         - npm run doc-prepare
         - npm run doc-build
 
