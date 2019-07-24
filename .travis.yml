@@ -6,71 +6,71 @@ env:
 
 jobs:
   include:
-    - stage: Tests
-      name: Linting
-      os: linux
-      sudo: required
-      language: node_js
-      node_js: 8
-      cache: npm
-      install:
-        - npm install --silent
-      script:
-        - npm run lint
+    # - stage: Tests
+    #   name: Linting
+    #   os: linux
+    #   sudo: required
+    #   language: node_js
+    #   node_js: 8
+    #   cache: npm
+    #   install:
+    #     - npm install --silent
+    #   script:
+    #     - npm run lint
 
-    - stage: Tests
-      name: Unit tests - Node.js 6
-      os: linux
-      sudo: required
-      language: node_js
-      node_js:
-        - 6
-      cache: npm
-      install:
-        - npm install --silent
-      script:
-        - npm run unit-testing
+    # - stage: Tests
+    #   name: Unit tests - Node.js 6
+    #   os: linux
+    #   sudo: required
+    #   language: node_js
+    #   node_js:
+    #     - 6
+    #   cache: npm
+    #   install:
+    #     - npm install --silent
+    #   script:
+    #     - npm run unit-testing
 
-    - stage: Tests
-      name: Unit tests - Node.js 8
-      os: linux
-      sudo: required
-      language: node_js
-      node_js:
-        - 8
-      cache: npm
-      install:
-        - npm install --silent
-      script:
-        - npm run unit-testing
-      after_script:
-        - npm run codecov
+    # - stage: Tests
+    #   name: Unit tests - Node.js 8
+    #   os: linux
+    #   sudo: required
+    #   language: node_js
+    #   node_js:
+    #     - 8
+    #   cache: npm
+    #   install:
+    #     - npm install --silent
+    #   script:
+    #     - npm run unit-testing
+    #   after_script:
+    #     - npm run codecov
 
-    - stage: Tests
-      name: Unit tests - Node.js 10
-      os: linux
-      sudo: required
-      language: node_js
-      node_js:
-        - 10
-      cache: npm
-      install:
-        - npm install --silent
-      script:
-        - npm run unit-testing
-      after_script:
-        - npm run codecov
+    # - stage: Tests
+    #   name: Unit tests - Node.js 10
+    #   os: linux
+    #   sudo: required
+    #   language: node_js
+    #   node_js:
+    #     - 10
+    #   cache: npm
+    #   install:
+    #     - npm install --silent
+    #   script:
+    #     - npm run unit-testing
+    #   after_script:
+    #     - npm run codecov
 
-    - stage: Tests
-      name: Dead link check
-      if: type = pull_request OR type = push AND branch =~ /^master|[0-9]+-(dev|stable)$/ OR type = cron
+    # - stage: Tests
+    #   name: Dead link check
+    #   if: type = pull_request OR type = push AND branch =~ /^master|[0-9]+-(dev|stable)$/ OR type = cron
 
-      before_script:
-        - npm run doc-prepare
-        - npm run --prefix doc/framework clone-repos
-      script:
-        - gem install typhoeus
-        - HYDRA_MAX_CONCURRENCY=20 npm run --prefix doc/framework dead-links
+    #   before_script:
+    #     - npm run doc-prepare
+    #     - npm run --prefix doc/framework clone-repos
+    #   script:
+    #     - gem install typhoeus
+    #     - HYDRA_MAX_CONCURRENCY=20 npm run --prefix doc/framework dead-links
 
 
 
