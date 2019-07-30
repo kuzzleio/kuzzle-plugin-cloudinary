@@ -1,7 +1,7 @@
 {
   "name": "cloudinary",
   "author": "The Kuzzle Team <support@kuzzle.io>",
-  "version": "1.1.1",
+  "version": "1.0.0",
   "description": "Kuzzle plugin that allows assets management for Cloudinary service",
   "main": "lib/index.js",
   "scripts": {
