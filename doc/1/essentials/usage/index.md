@@ -7,7 +7,7 @@ title: Usage
 
 # Usage
 
-This plugin can be used to manage your media library (including tags), search for assets inside it, apply on-the-fly transformations to your assets
+This plugin can be used to manage your media library (including tags), search for assets inside it and apply on-the-fly transformations to your assets
 
 Here is the list of all the features :
 - Search for some assets 
