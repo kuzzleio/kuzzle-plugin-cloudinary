@@ -49,8 +49,8 @@ Body:
 
 ## Arguments 
 
-- `expression` : Description of your search. See [Cloudinary documentation](https://cloudinary.com/documentation/search_api#expressions) for syntax information
-- `next_cursor` :  When a search request has more results to return than `max_results`, the *next_cursor* value is returned as part of the response. You can then specify this value as a parameter of the following request to continue your search.
+- `expression` : Description of your response. See [Cloudinary documentation](https://cloudinary.com/documentation/search_api#expressions) for syntax information
+- `next_cursor` :  When a search request has more results to return than `max_results`, the *next_cursor* value is returned as part of the response. You can then specify this value as the a parameter of the following request to continue your search.
 ::: warning 
 You must provide, at least, either the `expression` or the `next_cursor` field. If both are set, `expression` will be ignored 
 :::
@@ -58,7 +58,7 @@ You must provide, at least, either the `expression` or the `next_cursor` field. 
 ### Optional
 - `max_results` : Maximum number of assets to return. Default value : `50` 
 - `with_field`: Additionnal fields to include in each asset description
-- `sort_by` : An array of 2-values-array. First element is the field to sort resources by and the second one is the direction of the sort (*asc* or *desc*).
+- `sort_by` : An array of 2-values-array. First element is the field to sort resources by and the second one is the direction of the sort. 
   
 
 You can find more info [here](https://cloudinary.com/documentation/search_api#parameters)

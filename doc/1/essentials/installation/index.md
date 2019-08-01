@@ -5,7 +5,15 @@ title: Installation
 order: 100
 ---
 
-# Installation 
+# Kuzzle Plugin : Cloudinary
+
+Cloudinary is cloud-based image and video management platform. It automates the entire image-processing pipeline: from uploads to on-the-fly manipulations to optimization to dynamic delivery with any CDN.
+
+This plugin will let you use some of Cloudinary API's functions within Kuzzle. 
+
+You can test this plugin with Swagger UI. Find more in the [Usage section](/official-plugins/cloudinary/1/essentials/usage/)
+
+## Installation 
 
 Clone this repository in your `plugin/available` directory, install all needed modules with `npm install` and then link this directory to your `plugin/enabled` directory. 
 
@@ -18,7 +26,7 @@ ln -sr ./ ../../plugins/enabled/cloudinary
 
 You can now restart Kuzzle and check [http://localhost:7512](http://localhost:7512), you should see the plugin name under the key `serverInfo.kuzzle.plugins.cloudinary`.
 
-# Configuration 
+## Configuration 
 
 In order to use this plugin, you **need to provide your Cloudinary credentials** in the Vault.
 
