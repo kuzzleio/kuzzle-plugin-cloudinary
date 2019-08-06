@@ -6,7 +6,7 @@ title: transform
 
 # transform
 
-Applies the specified transformations to the given asset and returns an url of the transformed asset.
+Searches for assets corresponding to the specified expression and options
 
 --- 
 
@@ -36,7 +36,7 @@ Body:
   "controller": "cloudinary/assets",
   "action": "transform",
 
-  "body": {
+	"body": {
     "public_id" : "sample", 
     "transformation" : {
       "width" : 400,
