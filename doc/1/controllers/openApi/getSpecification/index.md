@@ -6,7 +6,7 @@ title: getSpecification
 
 # getSpecification
 
-Returns an [OpenApi Specification](https://swagger.io/specification/) object to use in the [SwaggerUI app](https://swagger.io/tools/swagger-ui/). 
+Returns an [OpenApi Specification](https://swagger.io/specification/) object to use in the [SwaggerUI app](https://swagger.io/tools/swagger-ui). 
 Used to test the plugin. See [Testing section](/official-plugins/cloudinary/1/essentials/testing)
 
 --- 
