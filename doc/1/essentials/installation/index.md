@@ -11,7 +11,7 @@ Cloudinary is cloud-based image and video management platform. It automates the 
 
 This plugin will let you use some of Cloudinary API's functions within Kuzzle. 
 
-You can test this plugin with Swagger UI. Find more in the [Usage section](/official-plugins/cloudinary/1/essentials/usage/)
+You can test this plugin with Swagger UI. Find more in the [Usage section](/official-plugins/cloudinary/1/essentials/usage)
 
 ## Installation 
 
