@@ -21,10 +21,7 @@ fi
 case $1 in
   prepare)
     echo "Clone documentation framework"
-<<<<<<< HEAD
-=======
     rm -rf framework/
->>>>>>> a10d59882cc6aac17a72eeb57d8991a846371d18
     git clone --depth 10 --single-branch --branch master https://github.com/kuzzleio/documentation.git framework/
 
     echo "Link local doc for dead links checking"
