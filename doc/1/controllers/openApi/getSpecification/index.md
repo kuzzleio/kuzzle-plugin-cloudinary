@@ -51,4 +51,4 @@ None
 
 ## Possible Errors 
 
--  [Common errors](/core/1/api/essentials/errors#common-errors)
+- [Common errors](/core/1/api/essentials/errors#common-errors)
