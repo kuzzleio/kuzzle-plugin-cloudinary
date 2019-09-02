@@ -82,5 +82,5 @@ If one or several assets haven't been updated, a `206 Partial Error` will be thr
 
 ## Possible Errors 
 
-- <a href="/core/1/api/essentials/errors/#common-errors">Common errors</a>
-- <a href="/core/1/api/essentials/errors/#specific-errors">PartialError</a>
+-  [Common errors](/core/1/api/essentials/errors#common-errors)
+-  [PartialError](/core/1/api/essentials/errors#specific-errors)

@@ -51,4 +51,4 @@ None
 
 ## Possible Errors 
 
-- <a href="/core/1/api/essentials/errors/#common-errors">Common errors</a>
+-  [Common errors](/core/1/api/essentials/errors#common-errors)
