@@ -109,4 +109,4 @@ For more information on search response, see [Cloudinary documentation](https://
 
 ## Possible Errors 
 
-- [Common errors](/core/1/api/essentials/errors/#common-errors)
+- <a href="/core/1/api/essentials/errors/#common-errors">Common errors</a>
