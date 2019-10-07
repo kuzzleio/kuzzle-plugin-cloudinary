@@ -57,5 +57,5 @@ Be aware that Cloudinary allows special characters in the public_id syntax. You 
 
 ## Possible Errors 
 
-- [Common errors](/core/1/api/essentials/errors/#common-errors)
-- [NotFoundError](/core/1/api/essentials/errors/#specific-errors)
+- [Common errors](/core/1/api/essentials/errors#common-errors)
+- [NotFoundError](/core/1/api/essentials/errors#specific-errors)
