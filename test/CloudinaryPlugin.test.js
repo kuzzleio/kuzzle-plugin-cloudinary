@@ -1,4 +1,5 @@
-const sinon = require('sinon'),
+const
+  sinon = require('sinon'),
   RequestMock = require('./mocks/request.mock'),
   ContextMock = require('./mocks/context.mock'),
   CloudinaryMock = require('./mocks/cloudinary.mock'),
@@ -22,7 +23,7 @@ describe('CloudinaryPlugin', () => {
 
 
     mockrequire('cloudinary', cloudinaryMock);
-    const CloudinaryPlugin = mockrequire.reRequire('../lib/index');
+    const CloudinaryPlugin = mockrequire.reRequire('../lib/CloudinaryPlugin');
     cloudinaryPlugin = new CloudinaryPlugin();
     cloudinaryPlugin.init(config, context);
   });
@@ -60,7 +61,7 @@ describe('CloudinaryPlugin', () => {
 
       should(() => cloudinaryPlugin._getArg(request.input.args, 'anArg')).throw();
     });
-    
+
     it('should return an array if asked', () => {
       request.init({
         input: {
@@ -386,8 +387,8 @@ describe('CloudinaryPlugin', () => {
   describe('#openApiSpecification', () => {
     it('should return open api object', () => {
       request.init({
-        response: { 
-          raw: false, 
+        response: {
+          raw: false,
           headers: {
             'Content-Type': null
           }
