@@ -12,6 +12,13 @@ You can test this plugin with Swagger UI. Find more in the [Testing section](#te
 
 ***This plugin is available for 1.8.2 and higher version of Kuzzle***
 
+## Compatibility matrice
+
+| Kuzzle Version | Plugin Version |
+| -------------- | -------------- |
+| 1.x.x          | 1.x.x          | 
+| 2.x.x          | 2.x.x          | 
+
 ## Usage
  
 Here are the existing routes (Note that all of these are preceded by `http://<host>:<port>/_plugin/cloudinary`) 
