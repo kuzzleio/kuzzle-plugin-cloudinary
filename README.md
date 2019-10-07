@@ -449,4 +449,4 @@ If you want to test this plugin, you can use the [Swagger UI online tool](https:
 [cloudinary tags doc]: https://cloudinary.com/documentation/image_upload_api_reference#tags_method
 [cloudinary expression doc]: https://cloudinary.com/documentation/search_api#expressions
 [cloudinary transformation doc]: https://cloudinary.com/documentation/image_transformation_reference
-[kuzzle vault doc]: https://docs.kuzzle.io/core/1/guides/essentials/secrets-vault/
+[kuzzle vault doc]: https://docs.kuzzle.io/core/2/guides/essentials/secrets-vault/
