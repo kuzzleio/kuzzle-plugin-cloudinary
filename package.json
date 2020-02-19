@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/kuzzleio/kuzzle-plugin-cloudinary#readme",
   "devDependencies": {
-    "codecov": "^3.2.0",
+    "codecov": "^3.6.5",
     "cucumber": "^5.0.1",
     "eslint": "^5.6.0",
     "kuzzle-common-objects": "^3.0.13",
