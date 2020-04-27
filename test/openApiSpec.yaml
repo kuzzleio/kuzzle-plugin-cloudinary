@@ -1,8 +1,8 @@
 openapi: 3.0.1
 info:
   title: 'Kuzzle plugin : Cloudinary'
-  description: "This is an usage example of Kuzzle plugin 'Cloudinary'. You can find more about this plugin 
-    on [GitHub](https://github.com/kuzzleio/kuzzle-plugin-cloudinary). If you need help, you can reach us on [Gitter](https://gitter.im/kuzzleio/kuzzle)"
+  description: "This is an usage example of Kuzzle plugin 'Cloudinary'. You can find more about this plugin
+    on [GitHub](https://github.com/kuzzleio/kuzzle-plugin-cloudinary). If you need help, you can reach us on [Discord](http://join.discord.kuzzle.io)"
   contact:
     email: support@kuzzle.io
   license:
@@ -10,7 +10,7 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.0
 externalDocs:
-  description: Cloudinary-plugin repository 
+  description: Cloudinary-plugin repository
   url: https://github.com/kuzzleio/kuzzle-plugin-cloudinary
 servers:
 - url: http://localhost:7512/_plugin/cloudinary
@@ -23,7 +23,7 @@ tags:
   description: Only used to return OpenAPI specification
 paths:
   ## Assets controller
-  /assets/search: 
+  /assets/search:
     post:
       tags:
       - assets
@@ -31,63 +31,63 @@ paths:
       description: Be aware that you should either put `expression` or `next_cursor` field. **If both are set, expression will be ignored**
       operationId: searchAssets
       requestBody:
-        content: 
-          application/json: 
-            schema: 
+        content:
+          application/json:
+            schema:
               type: object
-              required: 
+              required:
                 - expression
                 - next_cursor
-              properties: 
-                expression: 
+              properties:
+                expression:
                   type: string
                   example: "cat AND resource-type:image"
-                next_cursor: 
+                next_cursor:
                   type: string
-                max_results: 
+                max_results:
                   type: integer
                   default: 50
                   example: 20
                 with_field:
                   type: array
-                  items: 
+                  items:
                     type: string
-                    example: 
+                    example:
                       "tags"
                 sort_by:
                   type: array
-                  items: 
+                  items:
                     type: string
                     example: [ "public_id","asc" ]
       responses:
         200:
           description: successful operation
-          
+
   /assets/transform:
     post:
       tags:
       - assets
       summary: Return an url of a transformed assets
       description: You can transform your assets with on-the-fly transformations.
-      externalDocs: 
+      externalDocs:
         url: https://cloudinary.com/documentation/image_transformation_reference
         description: More information about transformation request body object
       operationId: assetsTransformation
       requestBody:
         required: true
-        content: 
+        content:
           application/json:
             schema:
               type: object
-              required: 
+              required:
                 - public_id
                 - transformation
-              properties: 
-                public_id: 
+              properties:
+                public_id:
                   type: string
-                transformation: 
-                  type: object 
-            example: 
+                transformation:
+                  type: object
+            example:
               public_id: "sample"
               transformation:
                 width: 400
@@ -100,33 +100,33 @@ paths:
               schema:
                 type: string
                 example: "https://res.cloudinary.com/demo/image/upload/w_400,r_0:100:100:100/sample.jpg"
-              
+
         400:
           description: Bad Request error if one attributes is missing
           content: {}
-          
-  /assets/{public_id}: 
-    put: 
+
+  /assets/{public_id}:
+    put:
       tags:
       - assets
       summary: Rename an asset
       operationId: renameAsset
-      parameters: 
+      parameters:
         - in: path
           name: public_id
           required: true
-          schema: 
+          schema:
             type: string
           description: The old public_id of the asset
           example: "old_name"
-        - in : query 
+        - in : query
           name: new_public_id
           required: true
-          schema: 
+          schema:
             type: string
           description: The new public_id of the asset
           example: "new_name"
-      
+
       responses:
         200:
           description: Returns all information about renamed asset
@@ -137,16 +137,16 @@ paths:
         404:
           description: Asset not found
           content: {}
-    delete: 
+    delete:
       tags:
       - assets
       summary: Delete an asset
       operationId: destroyAsset
-      parameters: 
+      parameters:
         - in: path
           name: public_id
           required: true
-          schema: 
+          schema:
             type: string
           description: The public_id of the asset
           example: "old_name"
@@ -160,66 +160,66 @@ paths:
         404:
           description: Asset not found
           content: {}
-            
+
   ##Tags controller
   /tags:
     post:
       tags:
       - tags
       summary: Add new tag to one or several assets
-      description: You can provide several assets in an array of string in the Request Body 
+      description: You can provide several assets in an array of string in the Request Body
       operationId: addTags
       requestBody:
         description: public_id can be a `String` or an `Array of String`
         required: true
-        content: 
-          application/json: 
+        content:
+          application/json:
             schema:
               type: object
-              required: 
+              required:
                 - public_id
                 - tag
-              properties: 
-                public_id: 
-                  oneOf: 
+              properties:
+                public_id:
+                  oneOf:
                     - type: array
-                      items: 
+                      items:
                         type: string
-                    - type: string 
-                tag: 
+                    - type: string
+                tag:
                   type: string
-            example: 
+            example:
               public_id: "sample"
               tag: "a tag"
-            
+
       responses:
         200:
           description: OK (returns all updated public_id)
           content:
             application/json:
               schema:
-                type: array 
+                type: array
                 items:
                   type: string
                   example: "sample"
         206:
           description: If you entered several public_id, a 206 error might be thrown if one or several assets haven't been updated.
-          content: 
+          content:
             application/json:
-              schema: 
+              schema:
                 $ref : '#/components/schemas/PartialError'
   /tags/{tag}:
-    put: 
+    put:
       tags:
       - tags
       summary: Replace all the tag from one or several assets with another tag
-      description: You can provide several assets by entering `public_id` parameters several times 
+      description: You can provide several assets by entering `public_id` parameters several times
       operationId: replaceTags
       parameters:
         - in: path
           name: tag
           required: true
-          schema: 
+          schema:
             type: string
           description: The tag that will replace all present tag
           example: "a_tag"
@@ -228,8 +228,8 @@ paths:
           style: form
           explode: true
           required: true
-          schema: 
-            type: string 
+          schema:
+            type: string
           description: The public_id of assets to be edited (This parameter can be input several times)
           example: "sample"
       responses:
@@ -239,26 +239,26 @@ paths:
             application/json:
               schema:
                 type: array
-                items: 
+                items:
                   type: string
                   example: "sample"
         206:
           description: If you entered several public_id, a 206 error might be thrown if one or several assets haven't been updated.
-          content: 
+          content:
             application/json:
-              schema: 
+              schema:
                 $ref : '#/components/schemas/PartialError'
-    delete: 
+    delete:
       tags:
       - tags
       summary: Delete the tag from one or several assets
-      description: You can provide several assets by entering `public_id` parameters several times 
+      description: You can provide several assets by entering `public_id` parameters several times
       operationId: removeTag
       parameters:
         - in: path
           name: tag
           required: true
-          schema: 
+          schema:
             type: string
           description: The tag that will be deleted from the asset(s)
           example: "the tag is a lie"
@@ -267,8 +267,8 @@ paths:
           style: form
           explode: true
           required: true
-          schema: 
-            type: string 
+          schema:
+            type: string
           description: The public_id of assets to be edited (This parameter can be input several times)
           example: "sample"
       responses:
@@ -281,17 +281,17 @@ paths:
                 example: "sample"
         206:
           description: If you entered several public_id, a 206 error might be thrown if one or several assets haven't been updated.
-          content: 
+          content:
             application/json:
-              schema: 
+              schema:
                 $ref : '#/components/schemas/PartialError'
-                
+
   /tags/remove_all:
-    delete: 
+    delete:
       tags:
       - tags
       summary: Delete all the tags from one or several assets
-      description: You can provide several assets by entering `public_id` parameters several times 
+      description: You can provide several assets by entering `public_id` parameters several times
       operationId: removeAllTags
       parameters:
         - in: query
@@ -299,8 +299,8 @@ paths:
           style: form
           explode: true
           required: true
-          schema: 
-            type: string 
+          schema:
+            type: string
           description: The public_id of assets to be edited (This parameter can be input several times)
           example: "sample"
       responses:
@@ -313,10 +313,10 @@ paths:
                 example: "sample"
         206:
           description: If you entered several public_id, a 206 error might be thrown if one or several assets haven't been updated.
-          content: 
+          content:
             application/json:
-              schema: 
-                $ref : '#/components/schemas/PartialError'      
+              schema:
+                $ref : '#/components/schemas/PartialError'
   /openApi:
     get:
       tags:
@@ -329,12 +329,12 @@ paths:
           content: {}
 components:
   schemas:
-    PartialError: 
+    PartialError:
       type: array
-      items: 
+      items:
         type: object
-        properties: 
+        properties:
           message:
             type: string
-          public_id: 
+          public_id:
             type: string
