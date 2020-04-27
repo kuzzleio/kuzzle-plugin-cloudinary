@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Kuzzle plugin : Cloudinary",
-    "description": "This is an usage example of Kuzzle plugin 'Cloudinary'. You can find more about this plugin  on [GitHub](https://github.com/kuzzleio/kuzzle-plugin-cloudinary). If you need help, you can reach us on [Gitter](https://gitter.im/kuzzleio/kuzzle)",
+    "description": "This is an usage example of Kuzzle plugin 'Cloudinary'. You can find more about this plugin  on [GitHub](https://github.com/kuzzleio/kuzzle-plugin-cloudinary). If you need help, you can reach us on [Discord](http://join.discord.kuzzle.io)",
     "contact": {
       "email": "support@kuzzle.io"
     },
