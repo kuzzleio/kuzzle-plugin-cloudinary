@@ -65,8 +65,10 @@ jobs:
       node_js: 10
       if: type = pull_request OR type = push AND branch =~ /^master|[0-9]+-(dev|stable)$/ OR type = cron
 
+      install:
+        - npm ci --production=false
+        - npm i --save-dev kuzdoc
       before_script:
-        - npm ci
         - npm run doc-prepare
         - $(npm bin)/kuzdoc iterate-repos:install --repos_path doc/framework/.repos/
         - $(npm bin)/kuzdoc framework:link -d /official-plugins/cloudinary/1/ -v 1
@@ -94,7 +96,8 @@ jobs:
 
       install:
         - pip install awscli --upgrade --user
-        - npm ci
+        - npm ci --production=false
+        - npm i --save-dev kuzdoc
 
       script:
         - npm run doc-prepare
@@ -130,7 +133,8 @@ jobs:
 
       install:
         - pip install awscli --upgrade --user
-        - npm ci
+        - npm ci --production=false
+        - npm i --save-dev kuzdoc
 
       script:
         - npm run doc-prepare
