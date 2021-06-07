@@ -36,6 +36,9 @@ jobs:
       node_js: 12
       if: type = pull_request OR type = push AND branch =~ /^master|[0-9]+-(dev|stable)$/ OR type = cron
 
+      install:
+        - npm ci --production=false
+        - npm i --save-dev kuzdoc
       before_script:
         - npm ci
         - npm run doc-prepare
@@ -65,7 +68,8 @@ jobs:
 
       install:
         - pip install awscli --upgrade --user
-        - npm ci
+        - npm ci --production=false
+        - npm i --save-dev kuzdoc
 
       script:
         - npm run doc-prepare
@@ -101,7 +105,8 @@ jobs:
 
       install:
         - pip install awscli --upgrade --user
-        - npm ci
+        - npm ci --production=false
+        - npm i --save-dev kuzdoc
 
       script:
         - npm run doc-prepare
